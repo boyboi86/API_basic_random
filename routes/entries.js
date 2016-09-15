@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   console.info('GET all entry');
     Entry.find({}).exec()
     .then(function(docs){
-      res.json(docs)
+        res.json(docs)
     })
     .catch(function(err){
       res.json({ ERR : 'cannot GET ALL'})
@@ -17,12 +17,16 @@ router.get('/', function(req, res, next) {
 /*GET Single Entry. */
 router.get('/:id', function(req, res, next){
   console.info('GET Single entry');
-  const _id = parseInt(req.params.id, 10);
+  const _id = req.params.id;
   Entry.findOne({
     _id
   }).exec()
   .then(function(docs){
+    if(!docs){
+      res.json({ ERR: `${_id} does not exist`})
+    } else {
     res.json(docs)
+    }
   })
   .catch(function(err){
     res.json({ ERR: 'cannot GET any'})
