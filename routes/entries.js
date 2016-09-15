@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* GET All Entries. */
 router.get('/', function(req, res, next) {
-  console.log('GET all entry');
+  console.info('GET all entry');
     Entry.find({}).exec()
     .then(function(docs){
       res.json(docs)
@@ -16,9 +16,10 @@ router.get('/', function(req, res, next) {
 
 /*GET Single Entry. */
 router.get('/:id', function(req, res, next){
-  console.log('GET Single entry');
+  console.info('GET Single entry');
+  const _id = parseInt(req.params.id, 10);
   Entry.findOne({
-    _id: req.params.id
+    _id
   }).exec()
   .then(function(docs){
     res.json(docs)
@@ -30,11 +31,11 @@ router.get('/:id', function(req, res, next){
 
 /*POST single post */
 router.post('/new', function(req, res, next) {
-  console.log('POST ONE entry');
+  console.info('POST ONE entry');
   const newEntry = new Entry();
-
-  newEntry.title = req.body.title;
-  newEntry.description = req.body.description;
+  const { body } = req
+  newEntry.title = body.title;
+  newEntry.description = body.description;
 
   newEntry.save()
   .then(function(docs){
@@ -47,12 +48,14 @@ router.post('/new', function(req, res, next) {
 
 /*PATCH single POST */
 router.patch('/:id', function(req, res, next){
-  console.log('PUT ONE entry: ', req.params.id);
-  Entry.findOneAndUpdate({ _id: req.params.id },
-    {$set: { title: req.body.title, description: req.body.description}},
+  const { body } = req
+  const _id = req.params.id
+  console.info('PUT ONE entry: ', _id);
+  Entry.findOneAndUpdate({ _id },
+    {$set: { title: body.title, description: body.description}},
     {upsert: true}).exec()
   .then(function(docs){
-    res.json({docs})
+    res.status(200).send(`${_id} has been updated`);
     console.log('changes made');
   })
   .catch(function(err){
@@ -62,8 +65,9 @@ router.patch('/:id', function(req, res, next){
 
 /*DELETE single POST */
 router.delete('/:id', function(req, res, next){
-  console.log('DELETE ONE ENTRY', req.params.id);
-  Entry.findOneAndRemove({ _id: req.params.id}).exec()
+  const _id = req.params.id
+  console.log('DELETE ONE ENTRY', _id);
+  Entry.findOneAndRemove({ _id }).exec()
   .then(function(docs){
     res.json({item_deleted: docs._id})
   })
