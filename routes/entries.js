@@ -18,18 +18,16 @@ router.get('/', function(req, res, next) {
 router.get('/:id', function(req, res, next){
   console.info('GET Single entry');
   const _id = req.params.id;
-  Entry.findOne({
-    _id
-  }).exec()
+  Entry.findOne({_id}).exec()
   .then(function(docs){
     if(!docs){
-      res.json({ ERR: `${_id} does not exist`})
+      res.status(404).send({ ERR: `${_id} does not exist`})
     } else {
     res.json(docs)
     }
   })
   .catch(function(err){
-    res.json({ ERR: 'cannot GET any'})
+    res.status(500).send({ ERR: 'cannot GET any'})
   })
 })
 
@@ -46,7 +44,7 @@ router.post('/new', function(req, res, next) {
     res.json({docs})
   })
   .catch(function(err){
-    res.json({err})
+    res.status(500).json({err})
   })
 })
 
@@ -59,24 +57,24 @@ router.patch('/:id', function(req, res, next){
     {$set: { title: body.title, description: body.description}},
     {upsert: true}).exec()
   .then(function(docs){
-    res.status(200).send(`${_id} has been updated`);
+    res.status(200).send(`item id: ${_id} has been updated`);
     console.log('changes made');
   })
   .catch(function(err){
-    res.json({err})
+    res.status(500).json({err})
   })
 })
 
 /*DELETE single POST */
 router.delete('/:id', function(req, res, next){
   const _id = req.params.id
-  console.log('DELETE ONE ENTRY', _id);
+  console.info('DELETE ONE ENTRY', _id);
   Entry.findOneAndRemove({ _id }).exec()
   .then(function(docs){
     res.json({item_deleted: docs._id})
   })
   .catch(function(err){
-    res.json({err})
+    res.status(500).json({err})
   })
 })
 
