@@ -13,12 +13,8 @@ const entrySchema = new Schema({
     type: String,
     maxlength: 160,
     required: true
-  },
-  dateCreated: {
-    type: Date,
-    default: new Date().toISOString()
   }
-})
+}, { timestamps: true })
 
 const EntryModel = mongoose.model('Entry', entrySchema);
 
