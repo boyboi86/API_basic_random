@@ -15,19 +15,19 @@ module.exports.SignIn = (req, res, next) => {
 
 /*Module for Sign up */
 module.exports.SignUp = (req, res, next) => {
-  const { Email } = req.body
+  const  _email  = req.body.email
   const { password } = req.body
 
-  if(!Email || !password){
+  if(!_email || !password){
     res.status(422).send({ err: 'Email and password required' })
   }
-  User.findOne({ email: Email })
+  User.findOne({ email: _email })
     .then(function(email){
       if(email){
         return res.status(422).send({ err: 'Email has been used'})
       }
         const NewUser = new User({
-          email: Email,
+          email: _email,
           password
         })
     NewUser.save()
