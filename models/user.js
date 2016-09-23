@@ -17,9 +17,14 @@ const userSchema = new Schema({
 userSchema.pre('save', function(next){
   let user = this;
   bcrypt.genSalt(10,function(err, salt){
-    if(err){ next(err) }
+    if(err){
+      next(err)
+    }
     bcrypt.hash(user.password, salt, null, function(err, hash_password){
-        err? next(err) : user.password = hash_password
+        if(err){
+          next(err)
+        }
+        user.password = hash_password
         next();
     })
   })
@@ -29,9 +34,15 @@ userSchema.pre('save', function(next){
 userSchema.methods.comparePassword = function(candidatePassword, callback){
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch){
     if(err){
-      return callback(err);
+      console.error('ComparePW: err during compare pw')
+      return callback(err)
     }
-    callback(null, isMatch);
+    if(!isMatch){
+        console.error('ComparePW: not matching password');
+        return done(null, false);
+      }
+    console.log('ComparePW: compare successful');
+    return callback(null, isMatch)
   })
 }
 
