@@ -5,12 +5,15 @@ const config = require('../config');
 /* JWT Sign Try to use sync method, async method has alot of fucking problem*/
 const UserToken = function(user){
   const timestamp = Date.now();
-  return jwt.sign({ sub: user.id, iat: timestamp }, config.secret)
+  return jwt.sign({ sub: user, iat: timestamp }, config.secret)
 }
 
 /*Module for Sign in */
 module.exports.SignIn = (req, res, next) => {
-  res.send({ token: UserToken(req.body)})
+  const _Token = UserToken(req.User)
+  res.setHeader('authorization',_Token)
+  return res.send({ token: _Token})
+  next()
 }
 
 /*Module for Sign up */
@@ -32,7 +35,9 @@ module.exports.SignUp = (req, res, next) => {
         })
     NewUser.save()
       .then(function(user){
-        return res.json({ token: UserToken(user) })
+        const _Token = UserToken(user)
+        res.setHeader('authorization',_Token)
+        return res.send({ token: _Token })
       })
       .catch(function(err){
         console.log(err)
