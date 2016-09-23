@@ -31,7 +31,7 @@ mongoose.connect(db_URI, db_Option, function(err){
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('combined', { stream: accessLogStream }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
