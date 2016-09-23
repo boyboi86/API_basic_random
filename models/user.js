@@ -26,11 +26,16 @@ userSchema.pre('save', function(next){
 })
 
 /*Create method for verification for signin */
-userSchema.methods.comparePassword = function(candidatePassword, cb){
+userSchema.methods.comparePassword = function(candidatePassword, callback){
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch){
-    err? cb(err) : cb(null, isMatch)
+    if(err){
+      return callback(err);
+    }
+    callback(null, isMatch);
   })
 }
+
+
 
 const UserModel = mongoose.model('User', userSchema);
 
