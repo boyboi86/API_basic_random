@@ -9,8 +9,8 @@ const requireAuth = passport.authenticate('jwt', { session: false })
 const requireSignin = passport.authenticate('local', { session: false })
 
 /* GET users listing. */
-router.get('/', requireAuth, function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', requireAuth, function(req, res) {
+  res.json({ message: 'authentication header is there'})
 });
 
 /*Sign In Route */
