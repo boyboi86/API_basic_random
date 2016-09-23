@@ -19,12 +19,18 @@ userSchema.pre('save', function(next){
   bcrypt.genSalt(10,function(err, salt){
     if(err){ next(err) }
     bcrypt.hash(user.password, salt, null, function(err, hash_password){
-      if(err){ next(err) }
-        user.password = hash_password
+        err? next(err) : user.password = hash_password
         next();
     })
   })
 })
+
+/*Create method for verification for signin */
+userSchema.methods.comparePassword = function(candidatePassword, cb){
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch){
+    err? cb(err) : cb(null, isMatch)
+  })
+}
 
 const UserModel = mongoose.model('User', userSchema);
 
