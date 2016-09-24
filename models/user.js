@@ -39,7 +39,7 @@ userSchema.methods.comparePassword = function(candidatePassword, callback){
     }
     if(!isMatch){
         console.error('ComparePW: not matching password');
-        return done(null, false);
+        return callback(null, false);
       }
     console.log('ComparePW: compare successful');
     return callback(null, isMatch)
