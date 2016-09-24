@@ -2,8 +2,13 @@ const express = require('express');
 const Entry = require('../models/entry');
 const router = express.Router();
 
+/*Authentication privating routes */
+const passportService = require('../services/passport');
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false })
+
 /* GET All Entries. */
-router.get('/', function(req, res, next) {
+router.get('/', requireAuth, function(req, res, next) {
   console.info('GET all entry');
     Entry.find({}).exec()
     .then(function(docs){
@@ -15,7 +20,7 @@ router.get('/', function(req, res, next) {
 });
 
 /*GET Single Entry. */
-router.get('/:id', function(req, res, next){
+router.get('/:id', requireAuth, function(req, res, next){
   console.info('GET Single entry');
   const _id = req.params.id;
   Entry.findOne({_id}).exec()
@@ -32,7 +37,7 @@ router.get('/:id', function(req, res, next){
 })
 
 /*POST single post */
-router.post('/new', function(req, res, next) {
+router.post('/new', requireAuth, function(req, res, next) {
   console.info('POST ONE entry');
   const newEntry = new Entry();
   const { body } = req
@@ -49,7 +54,7 @@ router.post('/new', function(req, res, next) {
 })
 
 /*PATCH single POST */
-router.patch('/:id', function(req, res, next){
+router.patch('/:id', requireAuth, function(req, res, next){
   const { body } = req
   const _id = req.params.id
   console.info('PUT ONE entry: ', _id);
@@ -66,7 +71,7 @@ router.patch('/:id', function(req, res, next){
 })
 
 /*DELETE single POST */
-router.delete('/:id', function(req, res, next){
+router.delete('/:id', requireAuth, function(req, res, next){
   const _id = req.params.id
   console.info('DELETE ONE ENTRY', _id);
   Entry.findOneAndRemove({ _id }).exec()
