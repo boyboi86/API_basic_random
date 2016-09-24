@@ -12,20 +12,21 @@ const localAuth = new LocalStrategy( localOptions, function(email, password, don
   .then(function(user){
     return new Promise(function(resolve, reject){
       if(!user){
-        console.error('invalid user auth')
-        return done(null, false)
+        console.error('Passport: invalid user auth')
+        reject(done(null, false))
       }
       user.comparePassword(password, function(err, isMatch){
           if(err){
-              console.error('error while comparing')
-              return done(err)
+              console.error('Passport: error while comparing')
+              return reject(done(err))
             }
           if(!isMatch){
-             console.error('not matching password')
-             return done(null, false)
+             console.error('Passport: not matching password')
+             return reject(done(null, false))
            }
+
+           resolve(done(null, isMatch))
            console.log('local strategy resolved');
-           return resolve(done(null, isMatch))
         })
       })
     })
@@ -44,11 +45,11 @@ const JwtAuth = new JwtStrategy( JwtOptions, function(payload, done){
   .then(function(user){
     return new Promise(function(resolve, reject){
       if(!user){
-        console.error('token does not match')
-        return done(null, false)
+        console.error('Passport: token does not match')
+        return reject(done(null, false))
       }
+      resolve(done(null, user))
       console.log('JWT Strategy resolve')
-      return resolve(done(null, user))
     })
   })
   .catch(function(err){
