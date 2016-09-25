@@ -17,7 +17,7 @@ router.get('/', requireAuth, function(req, res, next) {
   console.info('GET all entry');
     Entry.find({ _creator: user_id }).exec()
     .then(function(docs){
-        res.json(docs)
+      return res.json(docs)
     })
     .catch(function(err){
       res.json({ ERR : 'cannot GET ALL'})
@@ -31,9 +31,9 @@ router.get('/:id', requireAuth, function(req, res, next){
   Entry.findOne({_id}).exec()
   .then(function(docs){
     if(!docs){
-      res.status(404).send({ ERR: `${_id} does not exist`})
+      return res.status(404).send({ ERR: `${_id} does not exist`})
     } else {
-    res.json(docs)
+    return res.json(docs)
     }
   })
   .catch(function(err){
@@ -53,10 +53,18 @@ router.post('/new', requireAuth, function(req, res, next) {
   newEntry.save()
   .then(function(docs){
     docs? res.json({ docs }) : res.send('docs no valid')
-    User.findOne({ _id: docs._creator })
-    .then(function(doc){
-      doc.entries.push(docs._id)
-      doc.save();
+    return new Promise(function(resolve, reject){
+      User.findOne({ _id: docs._creator })
+      .then(function(doc){
+        if(!doc){
+          return reject('There is no update on entry id for user')
+        }
+        doc.entries.push(docs._id)
+        return resolve(doc.save().exec());
+      })
+      .catch(function(err){
+        res.status(422).json({err})
+      })
     })
   })
   .catch(function(err){
@@ -68,13 +76,18 @@ router.post('/new', requireAuth, function(req, res, next) {
 router.patch('/:id', requireAuth, function(req, res, next){
   const { body } = req
   const _id = req.params.id
+  const user_id = jwt.verify(req.headers.authorization, config.secret).sub
+  const creator_id = mongoose.Types.ObjectId(user_id);
   console.info('PUT ONE entry: ', _id);
-  Entry.findOneAndUpdate({ _id },
+  Entry.findOneAndUpdate({ _id , _creator: creator_id},
     {$set: { title: body.title, description: body.description}},
     {upsert: true}).exec()
   .then(function(docs){
-    res.status(200).send(`item id: ${_id} has been updated`);
+    if(!docs){
+      return res.status(404).send(`item id: ${_id} not found`)
+    }
     console.log('changes made');
+    return res.status(200).send(`item id: ${_id} has been updated`);
   })
   .catch(function(err){
     res.status(500).json({err})
@@ -84,10 +97,16 @@ router.patch('/:id', requireAuth, function(req, res, next){
 /*DELETE single POST */
 router.delete('/:id', requireAuth, function(req, res, next){
   const _id = req.params.id
+  const user_id = jwt.verify(req.headers.authorization, config.secret).sub
+  const creator_id = mongoose.Types.ObjectId(user_id);
   console.info('DELETE ONE ENTRY', _id);
-  Entry.findOneAndRemove({ _id }).exec()
+  Entry.findOneAndRemove({ _id , _creator: creator_id }).exec()
   .then(function(docs){
-    res.json({item_deleted: docs._id})
+    if(!docs){
+      return res.status(404).send(`item id: ${_id} not found`)
+    }
+    console.log('deletion made');
+    return res.json({item_deleted: docs._id})
   })
   .catch(function(err){
     res.status(500).json({err})
