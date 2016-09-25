@@ -15,7 +15,7 @@ const config = require('./config');
 const app = express();
 const accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
 const db_Option = { db: { safe: true }};
-const db_URI = process.env.DB_URI || config.DB_URI
+const db_URI = process.env.DB_URI || config.DB_URI || config.mLab
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
