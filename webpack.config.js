@@ -22,7 +22,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './public'
+    contentBase: 'public'
   },
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
