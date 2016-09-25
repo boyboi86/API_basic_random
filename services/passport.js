@@ -31,6 +31,7 @@ const localAuth = new LocalStrategy( localOptions, function(email, password, don
       })
     })
   .catch(function(err){
+    console.error('Passport: catch local error')
     return done(err)
   })
 })
@@ -53,6 +54,7 @@ const JwtAuth = new JwtStrategy( JwtOptions, function(payload, done){
     })
   })
   .catch(function(err){
+    console.error('Passport: catch error')
     return done(err)
   })
 })

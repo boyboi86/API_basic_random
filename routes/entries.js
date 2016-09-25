@@ -1,16 +1,21 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const Entry = require('../models/entry');
+const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 const router = express.Router();
 
 /*Authentication privating routes */
 const passportService = require('../services/passport');
 const passport = require('passport');
-const requireAuth = passport.authenticate('jwt', { session: false })
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 /* GET All Entries. */
 router.get('/', requireAuth, function(req, res, next) {
+  const user_id = jwt.verify(req.headers.authorization, config.secret).sub
   console.info('GET all entry');
-    Entry.find({}).exec()
+    Entry.find({ _creator: user_id }).exec()
     .then(function(docs){
         res.json(docs)
     })
@@ -19,7 +24,7 @@ router.get('/', requireAuth, function(req, res, next) {
     });
 });
 
-/*GET Single Entry. */
+/*GET Single Entry. DID NOT PRIVATIZE*/
 router.get('/:id', requireAuth, function(req, res, next){
   console.info('GET Single entry');
   const _id = req.params.id;
@@ -38,15 +43,21 @@ router.get('/:id', requireAuth, function(req, res, next){
 
 /*POST single post */
 router.post('/new', requireAuth, function(req, res, next) {
+  const user_id = jwt.verify(req.headers.authorization, config.secret).sub
   console.info('POST ONE entry');
   const newEntry = new Entry();
   const { body } = req
   newEntry.title = body.title;
   newEntry.description = body.description;
-
+  newEntry._creator = mongoose.Types.ObjectId(user_id);
   newEntry.save()
   .then(function(docs){
-    res.json({docs})
+    docs? res.json({ docs }) : res.send('docs no valid')
+    User.findOne({ _id: docs._creator })
+    .then(function(doc){
+      doc.entries.push(docs._id)
+      doc.save();
+    })
   })
   .catch(function(err){
     res.status(500).json({err})

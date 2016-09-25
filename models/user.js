@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('q').Promise;
 const { Schema } = mongoose;
+const Entry = require('./entry');
 const Q = require('q');
 const bcrypt = require('bcrypt-nodejs');
 
@@ -8,10 +9,12 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    lowercase: true
+    lowercase: true,
+    trim: true
   },
   password: String
-}, { timestamps: true })
+,
+entries : [{ type: Schema.Types.ObjectId, ref: 'Entry' }]}, { timestamps: true })
 
 /* Async salt/hash for each signup before saving user details */
 userSchema.pre('save', function(next){
