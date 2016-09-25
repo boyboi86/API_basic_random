@@ -13,7 +13,7 @@ const localAuth = new LocalStrategy( localOptions, function(email, password, don
     return new Promise(function(resolve, reject){
       if(!user){
         console.error('Passport: invalid user auth')
-        reject(done(null, false))
+        return reject(done(null, false))
       }
       user.comparePassword(password, function(err, isMatch){
           if(err){
@@ -24,9 +24,8 @@ const localAuth = new LocalStrategy( localOptions, function(email, password, don
              console.error('Passport: not matching password')
              return reject(done(null, false))
            }
-
+           console.info('local strategy resolved');
            resolve(done(null, isMatch))
-           console.log('local strategy resolved');
         })
       })
     })
@@ -49,8 +48,8 @@ const JwtAuth = new JwtStrategy( JwtOptions, function(payload, done){
         console.error('Passport: token does not match')
         return reject(done(null, false))
       }
+      console.info('JWT Strategy resolve')
       resolve(done(null, user))
-      console.log('JWT Strategy resolve')
     })
   })
   .catch(function(err){
