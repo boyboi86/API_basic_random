@@ -86,7 +86,7 @@ router.patch('/:id', requireAuth, function(req, res, next){
     if(!docs){
       return res.status(404).send(`item id: ${_id} not found`)
     }
-    console.log('changes made');
+    console.info('changes made');
     return res.status(200).send(`item id: ${_id} has been updated`);
   })
   .catch(function(err){
@@ -105,7 +105,7 @@ router.delete('/:id', requireAuth, function(req, res, next){
     if(!docs){
       return res.status(404).send(`item id: ${_id} not found`)
     }
-    console.log('deletion made');
+    console.info('deletion made');
     return res.json({item_deleted: docs._id})
   })
   .catch(function(err){

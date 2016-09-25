@@ -14,12 +14,11 @@ const config = require('./config');
 
 const app = express();
 const accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
-const db_Option = { db: { safe: true }};
+const db_Option = { db: { 
+    safe: true
+  }
+};
 const db_URI = process.env.DB_URI || config.DB_URI || config.mLab
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 //mongoose setup
 mongoose.connect(db_URI, db_Option, function(err){
