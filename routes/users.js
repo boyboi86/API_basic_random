@@ -13,9 +13,8 @@ const User = require('../models/user');
 
 /* GET users listing. */
 router.get('/', requireAuth, function(req, res, next) {
-  User.find({})
-    .sort({createdAt: -1})
-    .exec(function (users) {
+  User.find({}).sort({createdAt: -1}).exec()
+    .then(function (users) {
     res.json({ users })
   });
 });
