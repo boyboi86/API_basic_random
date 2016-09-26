@@ -8,9 +8,16 @@ const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false })
 const requireSignin = passport.authenticate('local', { session: false })
 
+//DB models
+const User = require('../models/user');
+
 /* GET users listing. */
-router.get('/', requireAuth, function(req, res) {
-  res.json({ message: 'authentication header is there'})
+router.get('/', requireAuth, function(req, res, next) {
+  User.find({})
+    .sort({createdAt: -1})
+    .exec(function (users) {
+    res.json({ users })
+  });
 });
 
 /*Sign In Route */
