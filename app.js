@@ -5,6 +5,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
@@ -14,7 +15,7 @@ const config = require('./config');
 
 const app = express();
 const accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
-const db_Option = { db: { 
+const db_Option = { db: {
     safe: true
   }
 };
@@ -28,11 +29,16 @@ mongoose.connect(db_URI, db_Option, function(err){
   console.log('db connection established')
 })
 
+app.set('views', path.join(__dirname, '/public'));
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('combined', { stream: accessLogStream }));
 app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 app.use('/', routes);
 app.use('/users', users);
