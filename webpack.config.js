@@ -5,8 +5,7 @@ const debug = process.env.NODE_ENV !== "production";
 module.exports = {
   entry: ['./public/src/index.js'],
   output: {
-    path: path.resolve(__dirname, 'src'),
-    publicPath: '/public/',
+    path: path.resolve(__dirname, 'public/src'),
     filename: 'bundle.js'
   },
   module: {
@@ -28,6 +27,6 @@ module.exports = {
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({ mangle: true , compress: { warnings: false }}),
   ]
 };
