@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const jwt = require('jsonwebtoken');
-const config = require('../config');
-const User = require('../models/user');
-
-/* GET home page. if there is valid jwt(user didn't log out) redirect to entries if not redirect to users route*/
+/* GET home page public static files*/
 router.get('/', function(req, res, next) {
-  res.send('welcome!!');
+  res.json({message: 'welcome!!'});
+
 });
+
+// router.get('/*', function(req, res){
+//   res.sendFile(path.resolve(__dirname, 'index.html'))
+// });
 
 module.exports = router;
