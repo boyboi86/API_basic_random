@@ -9,12 +9,12 @@ const entrySchema = new Schema({
   _creator : { type: String, ref: 'User' },
   title: {
     type: String,
-    maxlength: 20,
+    maxlength: 50,
     required: true
   },
   description: {
     type: String,
-    maxlength: 160,
+    maxlength: 300,
     required: true
   }
 }, { timestamps: true })
