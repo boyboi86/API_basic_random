@@ -13,6 +13,7 @@ import Users from './components/users';
 import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
+import requiredAuth from './components/auth/require_auth';
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
@@ -23,15 +24,12 @@ ReactDOM.render(
     <Router history={ browserHistory }>
       <Route path="/" component={ App } >
       <IndexRoute component={ Indexpage } />
-        {/*<Route path="entries" component= { RequireAuth(Entries) }>
-          <Route path="entries/new" component= { RequireAuth(Entries) } />
-          <Route path="entries/:id" components= { RequireAuth(Entries) } />
-        </Route>*/}
-      </Route>
-      <Route path="users" component= { Users } >
         <Route path="signin" component={ Signin } />
         <Route path="signout" component={ Signout } />
         <Route path="signup" component={ Signup } />
+        <Route path="users" component= { requiredAuth(Users) } />
+        {/*<Route path="newEntry" component= { requiredAuth(NewEntry) }  />
+        <Route path="Entry/:id" components= { requiredAuth(Entry) } />*/}
       </Route>
     </Router>
   </Provider>
