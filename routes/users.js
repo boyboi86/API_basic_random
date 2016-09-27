@@ -16,7 +16,10 @@ router.get('/', requireAuth, function(req, res) {
   User.find({}).sort({createdAt: -1}).exec()
     .then(function (users) {
     res.json({ users })
-  });
+  })
+  .catch(function(err){
+    console.error({err})
+  })
 });
 
 /*Sign In Route */
