@@ -12,7 +12,7 @@ const requireSignin = passport.authenticate('local', { session: false })
 const User = require('../models/user');
 
 /* GET users listing. */
-router.get('/', requireAuth, function(req, res, next) {
+router.get('/', requireAuth, function(req, res) {
   User.find({}).sort({createdAt: -1}).exec()
     .then(function (users) {
     res.json({ users })

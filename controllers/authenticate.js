@@ -10,10 +10,16 @@ const UserToken = function(user){
 
 /*Module for Sign in */
 module.exports.SignIn = (req, res, next) => {
-  const _Token = UserToken(req.user)
-  res.setHeader('authorization',_Token)
-  return res.send({ token: _Token})
-  next()
+  User.findOne({ email: req.body.email })
+  .then(function(data){
+    const _Token = UserToken(data)
+    res.setHeader('authorization',_Token)
+    return res.send({ token: _Token})
+    next()
+  })
+  .catch(function(err){
+    console.error({err})
+  })
 }
 
 /*Module for Sign up */
@@ -35,6 +41,7 @@ module.exports.SignUp = (req, res, next) => {
         })
     NewUser.save()
       .then(function(user){
+        console.log(user)
         const _Token = UserToken(user)
         res.setHeader('authorization',_Token)
         return res.send({ token: _Token })
