@@ -106,7 +106,14 @@ router.delete('/:id', requireAuth, function(req, res, next){
       return res.status(404).send(`item id: ${_id} not found`)
     }
     console.info('deletion made');
-    return res.json({item_deleted: docs._id})
+    return Entry.find({ _creator: creator_id }).exec()
+  })
+  .then(function(data){
+    console.info('Data after deletion sent')
+    res.json({ data });
+    return User.update({ _id: creator_id },
+      { $pull: { 'entries': _id } }
+    );
   })
   .catch(function(err){
     res.status(500).json({err})
