@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { AUTH_USER, AUTH_ERROR } from './types';
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER } from './types';
 
 const ROOT_URL = "http://localhost:3000"
 
@@ -8,7 +8,7 @@ export function signinUser({ email, password }){
   return function(dispatch){
     axios.post(`${ROOT_URL}/users/signin`, { email, password })
     .then(function(res){
-      dispatch({ type: AUTH_USER})
+      dispatch({ type: AUTH_USER })
       localStorage.setItem('token', res.data.token);
       browserHistory.push('/users');
     })
@@ -16,6 +16,28 @@ export function signinUser({ email, password }){
       dispatch(authError('Invalid email or password'))
       console.log({err});
     })
+  }
+}
+
+export function signupUser({email, password}){
+  return function(dispatch){
+    axios.post(`${ROOT_URL}/users/signup`, { email, password })
+    .then(function(res){
+      dispatch({ type: AUTH_USER })
+      localStorage.setItem('token', res.data.token);
+      browserHistory.push('/users');
+    })
+    .catch(function(err){
+      dispatch(authError('Invalid email or email has been registered'))
+      console.log({err});
+    })
+  }
+}
+
+export function signoutUser(){
+  return function(dispatch){
+    dispatch({ type : UNAUTH_USER })
+    localStorage.removeItem('token');
   }
 }
 
