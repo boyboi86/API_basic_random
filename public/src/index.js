@@ -4,8 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, IndexRoute, Route, browserHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
-//testing only
-import reactRouterToArray from 'react-router-to-array';
+
 
 import App from './components/app';
 import Indexpage from './components/indexpage';
@@ -13,11 +12,22 @@ import Users from './components/users';
 import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
+import Entry from './components/entry';
+import NewEntry from './components/newentry';
+import EditEntry from './components/editentry';
 import requiredAuth from './components/auth/require_auth';
+
+import { AUTH_USER } from './actions/types';
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
+
+/*To ensure if user has token in localStorage, they do not need to re-authenticate */
+const token = localStorage.getItem('token');
+if(token){
+  store.dispatch({ type: AUTH_USER })
+}
 
 ReactDOM.render(
   <Provider store={store}>
@@ -28,8 +38,9 @@ ReactDOM.render(
         <Route path="signout" component={ Signout } />
         <Route path="signup" component={ Signup } />
         <Route path="users" component= { requiredAuth(Users) } />
-        {/*<Route path="newEntry" component= { requiredAuth(NewEntry) }  />
-        <Route path="Entry/:id" components= { requiredAuth(Entry) } />*/}
+        <Route path="entry/new" component= { requiredAuth(NewEntry) }  />
+        <Route path="entry/edit" component= { requiredAuth(EditEntry) }  />
+        <Route path="entry" components= { requiredAuth(Entry) } />
       </Route>
     </Router>
   </Provider>
