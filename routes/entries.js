@@ -78,7 +78,7 @@ router.patch('/:id', requireAuth, function(req, res, next){
   const _id = req.params.id
   const user_id = jwt.verify(req.headers.authorization, config.secret).sub
   const creator_id = mongoose.Types.ObjectId(user_id);
-  console.info('PUT ONE entry: ', _id);
+  console.info('PATCH ONE entry: ', _id);
   Entry.findOneAndUpdate({ _id , _creator: creator_id},
     {$set: { title: body.title, description: body.description}},
     {upsert: true}).exec()
@@ -86,8 +86,12 @@ router.patch('/:id', requireAuth, function(req, res, next){
     if(!docs){
       return res.status(404).send(`item id: ${_id} not found`)
     }
-    console.info('changes made');
-    return res.status(200).send(`item id: ${_id} has been updated`);
+    console.info(`item id: ${_id} has been updated`);
+    return Entry.findOne({ _id })
+  })
+  .then(function(data){
+    res.json({data})
+    console.info("data sent after patch!")
   })
   .catch(function(err){
     res.status(500).json({err})
