@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import {reset} from 'redux-form';
 import {
   AUTH_USER,
   AUTH_ERROR,
   UNAUTH_USER,
   GET_USERS,
   GET_POSTS,
-  POST_ENTRY,
   GET_EDITPOST,
   DELETE_POST,
   PATCH_POST,
@@ -74,7 +74,7 @@ export function getUsers(){
       })
     })
     .catch(function(err){
-      console.error({err})
+      console.log({err})
     })
   }
 }
@@ -94,7 +94,7 @@ export function getOwnPosts(){
       })
     })
     .catch(function(err){
-      console.error({err})
+      console.log({err})
     })
   }
 }
@@ -112,7 +112,7 @@ export function deletePosts(_id){
       })
     })
     .catch(function(err){
-      console.error({err})
+      console.log({err})
     })
   }
 }
@@ -123,10 +123,11 @@ export function postEntry({title, description}){
     axios.post(`${ROOT_URL}/entries/new`, {title, description}, axiosOption)
     .then(function(res){
       console.log(res.data)
+      dispatch(reset('myForm'));
       browserHistory.push('/entry')
     })
     .catch(function(err){
-      console.error({err});
+      console.log({err});
     })
   }
 }
@@ -142,7 +143,7 @@ export function getEditPost({id}){
       })
     })
     .catch(function(err){
-        console.error({err});
+        console.log({err});
     })
   }
 }
@@ -151,12 +152,11 @@ export function patchPost({title, description, id}){
   return function(dispatch){
     axios.patch(`${ROOT_URL}/entries/${id}`, { title, description } ,axiosOption)
     .then(function(res){
-      browserHistory.push('/entry');
-      console.log("patchy")
       dispatch({
         type: PATCH_POST,
         payload: res
       })
+      browserHistory.push('/entry');
       console.log(res.data)
     })
     .catch(function(err){
