@@ -6,6 +6,7 @@ import * as actions from '../../actions';
 class NewEntry extends Component{
   handleFormSubmit({ title , description }){
     this.props.postEntry({ title , description });
+    
   }
 
   render(){
@@ -14,14 +15,14 @@ class NewEntry extends Component{
       <div>
         <div>New Entry</div>
         <Link className="btn btn-danger" to="/entry">cancel?</Link>
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <form id="CreateForm" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <fieldset>
             <label>Title:</label>
-            <input {...title} type="text" className="form-control" placeholder="Title of your post.." />
+            <input {...title} type="text" value={this.props.newpost} className="form-control title" placeholder="Title of your post.." />
           </fieldset>
           <fieldset>
             <label>Description:</label>
-            <input {...description} type="text" className="form-control" placeholder="What's your story about.." />
+            <input {...description} type="text" value={this.props.newpost} className="form-control description" placeholder="What's your story about.." />
           </fieldset>
           <button action="submit" className="btn btn-primary">Submit</button>
         </form>
@@ -29,6 +30,7 @@ class NewEntry extends Component{
     )
   }
 }
+
 
 const formOptions = { form: 'newEntry' , fields: [ 'title', 'description' ] }
 

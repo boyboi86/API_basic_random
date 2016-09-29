@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import * as actions from '../../actions';
 
 class EditEntry extends Component{
@@ -12,7 +12,7 @@ class EditEntry extends Component{
 
 componentWillMount(){
     const {id} = this.props.params;
-    this.props.getEditPost({id})
+    this.props.getEditPost({id: id})
   }
 
   TitleChange(event){
