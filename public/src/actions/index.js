@@ -1,6 +1,17 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, GET_USERS, GET_POSTS, POST_ENTRY } from './types';
+import {
+  AUTH_USER,
+  AUTH_ERROR,
+  UNAUTH_USER,
+  GET_USERS,
+  GET_POSTS,
+  POST_ENTRY,
+  GET_EDITPOST,
+  DELETE_POST,
+  PATCH_POST,
+  PATCH_EDITPOST,
+  PATCH_EDITPOST_DESC } from './types';
 
 const ROOT_URL = "http://localhost:3000"
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
@@ -95,6 +106,10 @@ export function deletePosts(_id){
     axios.delete(`${ROOT_URL}/entries/${_id}`, axiosOption)
     .then(function(res){
       console.log(res.data)
+      dispatch({
+        type: DELETE_POST,
+        payload: res
+      })
     })
     .catch(function(err){
       console.error({err})
@@ -112,6 +127,60 @@ export function postEntry({title, description}){
     })
     .catch(function(err){
       console.error({err});
+    })
+  }
+}
+
+export function getEditPost({id}){
+  return function(dispatch){
+    axios.get(`${ROOT_URL}/entries/${id}`, axiosOption)
+    .then(function(res){
+      console.log(res.data)
+      dispatch({
+        type: GET_EDITPOST,
+        payload: res
+      })
+    })
+    .catch(function(err){
+        console.error({err});
+    })
+  }
+}
+
+export function patchPost({title, description, id}){
+  return function(dispatch){
+    axios.patch(`${ROOT_URL}/entries/${id}`, { title, description } ,axiosOption)
+    .then(function(res){
+      browserHistory.push('/entry');
+      console.log("patchy")
+      dispatch({
+        type: PATCH_POST,
+        payload: res
+      })
+      console.log(res.data)
+    })
+    .catch(function(err){
+      console.log({err});
+    })
+  }
+}
+
+export function onTitleChange({title}){
+  return function(dispatch){
+    console.log({title})
+    dispatch({
+      type: PATCH_EDITPOST,
+      payload: title
+    })
+  }
+}
+
+export function onDescChange({description}){
+  return function(dispatch){
+    console.log({description})
+    dispatch({
+      type: PATCH_EDITPOST_DESC,
+      payload: description
     })
   }
 }

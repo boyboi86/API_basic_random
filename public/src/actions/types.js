@@ -5,3 +5,7 @@ export const GET_USERS = 'get_users';
 export const GET_POSTS = 'get_posts';
 export const DELETE_POST = 'delete_post';
 export const POST_ENTRY = 'post_entry';
+export const GET_EDITPOST = 'get_editPost';
+export const PATCH_POST = 'patch_post';
+export const PATCH_EDITPOST = 'patch_editPost';
+export const PATCH_EDITPOST_DESC = 'patch_editPost_desc'
