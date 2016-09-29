@@ -1,5 +1,6 @@
 import { GET_POSTS } from '../actions/types';
 import { GET_EDITPOST } from '../actions/types';
+import { RESET_ENTRY } from '../actions/types';
 import { PATCH_POST } from '../actions/types';
 import { DELETE_POST } from '../actions/types';
 import { PATCH_EDITPOST } from '../actions/types';
