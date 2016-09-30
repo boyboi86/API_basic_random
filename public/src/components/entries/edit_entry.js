@@ -27,6 +27,9 @@ componentWillMount(){
     const { handleSubmit, fields: {title, description}} = this.props;
     return(
       <div>
+      <div>
+        <strong>Edit post</strong>
+      </div>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <fieldset className="form-group">
             <label>title:</label>
