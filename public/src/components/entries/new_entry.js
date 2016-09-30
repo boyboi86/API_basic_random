@@ -13,8 +13,9 @@ class NewEntry extends Component{
     const {handleSubmit, fields: { title , description } } = this.props;
     return (
       <div>
-        <div>New Entry</div>
-        <Link className="btn btn-danger" to="/entry">cancel?</Link>
+        <div>
+          <strong>New Entry</strong>
+        </div>
         <form id="CreateForm" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <fieldset>
             <label>Title:</label>
@@ -25,6 +26,7 @@ class NewEntry extends Component{
             <textarea {...description} type="text" value={this.props.newpost} className="form-control description" placeholder="What's your story about.." />
           </fieldset>
           <button action="submit" className="btn btn-primary">Submit</button>
+          <Link className="btn btn-danger offset-sm-9" to="/entry">cancel?</Link>
         </form>
       </div>
     )
