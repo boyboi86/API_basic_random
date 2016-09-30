@@ -11,6 +11,9 @@ class Entry extends Component{
   componentDidUpdate(){
     this.props.getOwnPosts();
   }
+  componentWillUnmount(){
+    this.props.post;
+  }
 
 /* NEED TO CREATE A FEW POST USING POSTMAN */
   renderPost(){
@@ -21,8 +24,8 @@ class Entry extends Component{
       return(
         <li className="list-group-item" key={index}>
           <div>
-            <strong>{el.title}</strong>
-            <italic className="pull-sm-right">{el.updatedAt}</italic>
+            <b>{el.title}</b>
+            <i className="pull-sm-right">{el.updatedAt}</i>
           </div>
           <div>{el.description}</div>
           <Link className="btn btn-warning" to={`/entry/edit/${el._id}`} activeClassName="active">Edit</Link>
@@ -34,21 +37,11 @@ class Entry extends Component{
 
   render(){
     return (
-      <div>
-        <div className="container jumbotron">
-          <div className="pull-sm-left">
-            <Link className="btn btn-primary" to="/entry/new">Add new post?</Link>
-          </div>
-          <div className="pull-sm-right">
-            <Link className="btn btn-info" to="/users">See all users?</Link>
-          </div>
-        </div>
         <div className="container row jumbotron">
             <ul className="list-group col-sm-6 offset-sm-3">
               { this.renderPost() }
             </ul>
         </div>
-      </div>
     )
   }
 }

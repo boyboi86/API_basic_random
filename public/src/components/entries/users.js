@@ -9,6 +9,11 @@ class Users extends Component {
   }
 
   renderElements(){
+    if(!this.props.users){
+      return(
+        <div>You are the 1st User in this blog!!</div>
+      )
+    }
     return this.props.users.map(function(el, index){
         return (
           <li className="list-group-item" key={ index }>
@@ -23,9 +28,6 @@ class Users extends Component {
   render(){
     return (
       <div>
-        <div>
-          <Link className="btn btn-primary" to="/entry">See all your post</Link>
-        </div>
         <ul className="list-group">
             {this.renderElements()}
         </ul>
