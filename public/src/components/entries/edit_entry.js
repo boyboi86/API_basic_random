@@ -36,7 +36,7 @@ componentWillMount(){
           </fieldset>
           <fieldset className="form-group">
             <label>description:</label>
-            <input {...description} className="form-control" type="text"
+            <textarea {...description} className="form-control" type="text"
             value={this.props.post.description}
             onChange={this.DescChange.bind(this)}/>
           </fieldset>
