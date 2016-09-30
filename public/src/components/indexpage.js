@@ -6,8 +6,6 @@ export default class Indexpage extends Component {
     return (
       <div>
         <div>This is build with React/Redux</div>
-        <Link className="btn btn-primary" to="/entry">Profile</Link>
-        <Link className="btn btn-info" to="/users">See all users</Link>
       </div>
     )
   }
