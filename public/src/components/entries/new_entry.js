@@ -6,7 +6,7 @@ import * as actions from '../../actions';
 class NewEntry extends Component{
   handleFormSubmit({ title , description }){
     this.props.postEntry({ title , description });
-    
+
   }
 
   render(){
@@ -22,7 +22,7 @@ class NewEntry extends Component{
           </fieldset>
           <fieldset>
             <label>Description:</label>
-            <input {...description} type="text" value={this.props.newpost} className="form-control description" placeholder="What's your story about.." />
+            <textarea {...description} type="text" value={this.props.newpost} className="form-control description" placeholder="What's your story about.." />
           </fieldset>
           <button action="submit" className="btn btn-primary">Submit</button>
         </form>
