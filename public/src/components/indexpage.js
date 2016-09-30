@@ -5,7 +5,14 @@ export default class Indexpage extends Component {
   render(){
     return (
       <div>
-        <div>This is build with React/Redux</div>
+      <br/>
+        <div>
+          <strong className="front">Built in MERN stack</strong>
+        </div>
+      <br/>
+        <div>
+          <strong className="front">Enjoy!!</strong>
+        </div>
       </div>
     )
   }
