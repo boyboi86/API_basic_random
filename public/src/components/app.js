@@ -5,18 +5,24 @@ import { Link } from 'react-router';
 class App extends Component {
   renderLinks(){
     if(this.props.authentication){
-      return (
-        <li className="nav-item">
-        <Link className="nav-link" to="/signout">Sign Out</Link>
+      return [
+        <li className="nav-item" key={1}>
+        <Link className="nav-link" to="/entry"><strong>Profile</strong></Link>
+        </li>,
+        <li className="nav-item" key={2}>
+        <Link className="nav-link" to="/entry/new"><strong>+ new post</strong></Link>
+        </li>,
+        <li className="nav-item" key={3}>
+        <Link className="nav-link" to="/signout"><strong>Sign Out</strong></Link>
         </li>
-      )
+      ]
     } else {
       return [
         <li className="nav-item" key="1">
-          <Link className="nav-link" to="/signin">Sign In</Link>
+          <Link className="nav-link" to="/signin"><strong>Sign In</strong></Link>
         </li>,
         <li className="nav-item" key="2">
-          <Link className="nav-link" to="/signup">Sign Up</Link>
+          <Link className="nav-link" to="/signup"><strong>Sign Up</strong></Link>
         </li>
       ]
     }
@@ -26,7 +32,7 @@ class App extends Component {
     return (
       <div>
       <nav className="navbar navbar-light">
-        <Link className="navbar-brand" to="/">Reactive Blog</Link>
+        <Link className="navbar-brand" to="/users"><strong>Colorful Blog</strong></Link>
         <ul className="nav navbar-nav pull-sm-right">
           {this.renderLinks()}
         </ul>
