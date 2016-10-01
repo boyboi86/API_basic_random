@@ -21,7 +21,6 @@ const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
 
 axios.defaults.headers['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
 
-
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
 
 /*Sign in user*/
