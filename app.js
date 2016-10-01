@@ -19,7 +19,7 @@ const db_Option = { db: {
     safe: true
   }
 };
-const db_URI = process.env.DB_URI || config.DB_URI || config.mLab
+const db_URI = process.env.DB_URI || config.mLab || config.DB_URI
 
 //mongoose setup
 mongoose.connect(db_URI, db_Option, function(err){
