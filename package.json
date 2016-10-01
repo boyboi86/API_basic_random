@@ -25,6 +25,7 @@
     "express-react-views": "^0.10.2",
     "jsonwebtoken": "^7.1.9",
     "lodash": "^3.10.1",
+    "moment": "^2.15.1",
     "mongoose": "^4.5.7",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
