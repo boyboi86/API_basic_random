@@ -11,10 +11,21 @@ class Users extends Component {
   renderElements(){
     if(!this.props.users){
       return(
-        <div>You are the 1st User in this blog!!</div>
+        <div>
+          <strong>You are the 1st User in this blog!!</strong>
+        </div>
       )
     }
     return this.props.users.map(function(el, index){
+      if(el.entries.length <= 1) {
+        return (
+          <li className="list-group-item" key={ index }>
+          {el.email}
+          <div className="pull-sm-right">Join on {el.createdAt}</div>
+          <div>Created {el.entries.length} entry</div>
+          </li>
+        )
+      }
         return (
           <li className="list-group-item" key={ index }>
           {el.email}

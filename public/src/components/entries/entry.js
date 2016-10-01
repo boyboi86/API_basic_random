@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
@@ -11,9 +12,12 @@ class Entry extends Component{
   componentDidUpdate(){
     this.props.getOwnPosts();
   }
-  componentWillUnmount(){
-    this.props.post;
+
+  getTimeFrom(time){
+    const updatedAt = new Date(time);
+    return moment(updatedAt, 'YYYYMMDD').fromNow()
   }
+
 
 /* NEED TO CREATE A FEW POST USING POSTMAN */
   renderPost(){
@@ -25,7 +29,7 @@ class Entry extends Component{
         <li className="list-group-item" key={index}>
           <div>
             <b>{el.title}</b>
-            <i className="pull-sm-right">{el.updatedAt}</i>
+            <i className="pull-sm-right">{this.getTimeFrom(el.updatedAt)}</i>
           </div>
           <div>{el.description}</div>
           <Link className="btn btn-warning" to={`/entry/edit/${el._id}`} activeClassName="active">Edit</Link>

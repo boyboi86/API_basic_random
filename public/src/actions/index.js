@@ -123,7 +123,6 @@ export function postEntry({title, description}){
     axios.post(`${ROOT_URL}/entries/new`, {title, description}, axiosOption)
     .then(function(res){
       console.log(res.data)
-      dispatch(reset('myForm'));
       browserHistory.push('/entry')
     })
     .catch(function(err){

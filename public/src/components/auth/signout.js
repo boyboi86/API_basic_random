@@ -10,7 +10,7 @@ class Signout extends Component {
   render(){
     return (
       <div>
-        <div>You have successfully signed out</div>
+        <div><strong>Hope to see you soon!!</strong></div>
       </div>
     )
   }
