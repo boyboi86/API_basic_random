@@ -24,6 +24,16 @@ navigate to working directory, then run `npm install`
 
 run `npm start`, got to browser `http://localhost:3000`
 
+##When you are authenticated
+
+You can see all your post/ create your post, edit your post and delete your post.
+
+You can also see all your post details like when it was posted.
+
+You can see a list of users with the number of post they have made.
+
+Give it a try here (Heroku)[https://glacial-cove-64389.herokuapp.com]
+
 ## Note
 
 Server-side was scaffolded using express-generator then modified to fit the needs of the project.
