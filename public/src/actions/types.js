@@ -8,3 +8,4 @@ export const GET_EDITPOST = 'get_editPost';
 export const PATCH_POST = 'patch_post';
 export const PATCH_EDITPOST = 'patch_editPost';
 export const PATCH_EDITPOST_DESC = 'patch_editPost_desc'
+export const POST_ERR = 'post_err';

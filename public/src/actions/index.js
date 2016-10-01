@@ -11,11 +11,17 @@ import {
   DELETE_POST,
   PATCH_POST,
   PATCH_EDITPOST,
-  PATCH_EDITPOST_DESC } from './types';
+  PATCH_EDITPOST_DESC,
+  POST_ERR } from './types';
+
+
+// const ROOT_URL = "//localhost:3000"
+
+const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
 
 axios.defaults.headers['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
 
-const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
+
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
 
 /*Sign in user*/
@@ -128,11 +134,14 @@ export function postEntry({title, description}){
       browserHistory.push('/entry')
     })
     .catch(function(err){
+      dispatch(postErr('word count limit exceeded'));
       console.log({err});
     })
   }
 }
 
+/*GET specific post for editing
+  Route: /entry/edit/:id */
 export function getEditPost({id}){
   return function(dispatch){
     axios.get(`${ROOT_URL}/entries/${id}`, axiosOption)
@@ -148,7 +157,8 @@ export function getEditPost({id}){
     })
   }
 }
-
+/* For edit post use only
+  Route: /entry/edit/:id */
 export function patchPost({title, description, id}){
   return function(dispatch){
     axios.patch(`${ROOT_URL}/entries/${id}`, { title, description } ,axiosOption)
@@ -161,11 +171,14 @@ export function patchPost({title, description, id}){
       console.log(res.data)
     })
     .catch(function(err){
+      dispatch(postErr('word count limit exceeded'))
       console.log({err});
     })
   }
 }
 
+/* Change for input  for edit entry
+  Route: entry/edit/:id */
 export function onTitleChange({title}){
   return function(dispatch){
     console.log({title})
@@ -175,7 +188,8 @@ export function onTitleChange({title}){
     })
   }
 }
-
+/* Change for input  for edit entry
+  Route: entry/edit/:id */
 export function onDescChange({description}){
   return function(dispatch){
     console.log({description})
@@ -183,5 +197,13 @@ export function onDescChange({description}){
       type: PATCH_EDITPOST_DESC,
       payload: description
     })
+  }
+}
+
+/* Error message for all post */
+export function postErr(err){
+  return {
+    type: POST_ERR,
+    payload: err
   }
 }

@@ -23,6 +23,16 @@ componentWillMount(){
     this.props.onDescChange({description: event.target.value})
   }
 
+  errorHandle(){
+    if(this.props.errorMsg){
+      return (
+        <div className="alert alert-danger">
+          {this.props.errorMsg}
+        </div>
+      )
+    }
+  }
+
   render(){
     const { handleSubmit, fields: {title, description}} = this.props;
     return(
@@ -43,6 +53,7 @@ componentWillMount(){
             value={this.props.post.description}
             onChange={this.DescChange.bind(this)}/>
           </fieldset>
+          {this.errorHandle()}
           <button action="submit" className="btn btn-primary">Submit Changes</button>
           <Link className="btn btn-danger pull-sm-right" to="/entry">cancel</Link>
         </form>
@@ -53,7 +64,8 @@ componentWillMount(){
 
 function mapStateToProps(state){
   return {
-    post: state.posts.post
+    post: state.posts.post,
+    errorMsg: state.posts.error
   }
 }
 

@@ -9,6 +9,16 @@ class NewEntry extends Component{
 
   }
 
+  errorHandle(){
+    if(this.props.errorMsg){
+      return (
+        <div className="alert alert-danger">
+        {this.props.errorMsg}
+        </div>
+      )
+    }
+  }
+
   render(){
     const {handleSubmit, fields: { title , description } } = this.props;
     return (
@@ -25,6 +35,7 @@ class NewEntry extends Component{
             <label>Description:</label>
             <textarea {...description} type="text" value={this.props.newpost} className="form-control description" placeholder="What's your story about.." />
           </fieldset>
+          {this.errorHandle()}
           <button action="submit" className="btn btn-primary">Submit</button>
           <Link className="btn btn-danger pull-sm-right" to="/entry">cancel?</Link>
         </form>
@@ -36,4 +47,10 @@ class NewEntry extends Component{
 
 const formOptions = { form: 'newEntry' , fields: [ 'title', 'description' ] }
 
-export default reduxForm(formOptions, null, actions)(NewEntry);
+function mapStateToProps(state){
+  return {
+    errorMsg: state.posts.error
+  }
+}
+
+export default reduxForm(formOptions, mapStateToProps, actions)(NewEntry);
