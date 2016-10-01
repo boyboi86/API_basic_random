@@ -36,8 +36,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-app.use('/', routes);
+
 app.use('/users', users);
 app.use('/entries', entries);
+/*Route reserved for all static assets must be last route to run */
+app.use('/', routes);
 
 module.exports = app;
