@@ -13,7 +13,7 @@ import {
   PATCH_EDITPOST,
   PATCH_EDITPOST_DESC } from './types';
 
-const ROOT_URL = "https://lit-savannah-16561.herokuapp.com"
+const ROOT_URL = "http://localhost:3000"
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
 
 /*Sign in user*/
