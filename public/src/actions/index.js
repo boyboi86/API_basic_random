@@ -13,7 +13,7 @@ import {
   PATCH_EDITPOST,
   PATCH_EDITPOST_DESC } from './types';
 
-axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+axios.defaults.headers['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
 
 const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
