@@ -24,7 +24,7 @@ router.get('/', requireAuth, function(req, res, next) {
     });
 });
 
-/*GET Single Entry. DID NOT PRIVATIZE*/
+/*GET Single Entry. */
 router.get('/:id', requireAuth, function(req, res, next){
   console.info('GET Single entry');
   const _id = req.params.id;
@@ -68,7 +68,7 @@ router.post('/new', requireAuth, function(req, res, next) {
     })
   })
   .catch(function(err){
-    res.status(500).json({err})
+    res.status(500).json({err: 'Word count exceeded'})
   })
 })
 
@@ -81,7 +81,7 @@ router.patch('/:id', requireAuth, function(req, res, next){
   console.info('PATCH ONE entry: ', _id);
   Entry.findOneAndUpdate({ _id , _creator: creator_id},
     {$set: { title: body.title, description: body.description}},
-    {upsert: true}).exec()
+    {upsert: true, runValidators: true}).exec()
   .then(function(docs){
     if(!docs){
       return res.status(404).send(`item id: ${_id} not found`)
