@@ -22,10 +22,20 @@ download zip file or clone using `git clone`
 
 navigate to working directory, then run `npm install`
 
-run `npm run postinstall` follow by `npm start`, got to browser `http://localhost:3000`
+run `npm start`, got to browser `http://localhost:3000`
 
 ## Note
 
 Server-side was scaffolded using express-generator then modified to fit the needs of the project.
+
+I included the bundle.js in the public folder, so there is no need to run additional commands.
+
+Please make sure you have either mongodb installed or a mLab account when you set up your own config file.
+
+config file format (JSON):
+`module.exports = {
+  mLab: <mLAB_URL>
+  secret: <JWT_SECRETKEY>
+  }`
 
 Although the app is completed but it will continuously be updated to add more features and styles.
