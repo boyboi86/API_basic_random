@@ -32,7 +32,7 @@ You can also see all your post details like when it was posted.
 
 You can see a list of users with the number of post they have made.
 
-Give it a try here (Heroku)[https://glacial-cove-64389.herokuapp.com]
+Give it a try here [Heroku](https://glacial-cove-64389.herokuapp.com)
 
 ## Note
 
