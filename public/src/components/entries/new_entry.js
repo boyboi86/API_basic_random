@@ -26,7 +26,7 @@ class NewEntry extends Component{
             <textarea {...description} type="text" value={this.props.newpost} className="form-control description" placeholder="What's your story about.." />
           </fieldset>
           <button action="submit" className="btn btn-primary">Submit</button>
-          <Link className="btn btn-danger offset-sm-9" to="/entry">cancel?</Link>
+          <Link className="btn btn-danger pull-sm-right" to="/entry">cancel?</Link>
         </form>
       </div>
     )

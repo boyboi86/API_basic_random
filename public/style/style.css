@@ -26,8 +26,6 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   overflow: hidden;
-  font-family: 'Bubblegum Sans', cursive;
-
 }
 .list-group-item:before {
   content: "";
@@ -55,23 +53,17 @@ html, body {
 
 /* Underline From Center */
 .nav-item {
-  font-size: 18px;
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  right: 50%;
-  bottom: 0;
-  background: #2098d1;
-  height: 4px;
-  -webkit-transition-property: left, right;
-  transition-property: left, right;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: hidden;
 }
-
 .nav-item:before {
   content: "";
   position: absolute;
@@ -98,80 +90,19 @@ strong, label {
   font-family: 'Bubblegum Sans', cursive;
 }
 
- .front {
-  font-size: 20px;
+.jumbotron {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
 
+textarea {
+  height: 300px;
+  font-family: 'Bubblegum Sans', cursive;
 }
 
 .btn {
   margin-top: 10px;
-  font-family: 'Bubblegum Sans', cursive;
-}
-
-.jumbotron {
-  background-color: rgba(255, 250, 250, 0.5) !important;
 }
 
 div {
   font-family: 'Bubblegum Sans', cursive;
-}
-
-textarea {
-  height: 350px;
-  padding-bottom: 5px;
-  font-family: 'Bubblegum Sans', cursive;
-}
-.list-group-item:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border-color: #2098d1;
-  border-style: solid;
-  border-width: 0;
-  -webkit-transition-property: border-width;
-  transition-property: border-width;
-  -webkit-transition-duration: 0.1s;
-  transition-duration: 0.1s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-.list-group-item:hover:before, .list-group-item:focus:before, .list-group-item:active:before {
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
-  border-width: 4px;
-}
-
-.btn {
-  margin: 10px;
-}
-
-div .jumbotron {
-  background-color: rgba(255, 255, 255, 0.5) !important;
-}
-
-textarea[class$=description]{
-  height: 300px;
-}
-
-strong {
-  color: #ffffff;
-}
-
-img {
-  width: 30px;
-  height: auto;
-}
-
-em {
-  color: #ffffff;
-  font-size: 24px;
-  font-family: 'Bubblegum Sans', cursive;
-}
-
-div .index {
-  margin-top: 30px;
 }
