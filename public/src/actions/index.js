@@ -18,11 +18,11 @@ import {
   POST_TEXT } from './types';
 
 
-const ROOT_URL = "//localhost:3000"
+// const ROOT_URL = "//localhost:3000"
 
-// const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
-// axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
-// axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
+axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
 
