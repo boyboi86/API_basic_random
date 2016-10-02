@@ -22,8 +22,6 @@ import {
 
 const ROOT_URL = "https://glacial-cove-64389.herokuapp.com"
 axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
 
