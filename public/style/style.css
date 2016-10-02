@@ -106,3 +106,7 @@ textarea {
 div {
   font-family: 'Bubblegum Sans', cursive;
 }
+
+.exceeded {
+  color: #bb1919
+}
