@@ -28,4 +28,19 @@ router.post('/signin', requireSignin, Auth.SignIn);
 /*Sign Up Route */
 router.post('/signup', Auth.SignUp);
 
+/*List of post from user id*/
+router.get('/:id', requireAuth, function(req, res){
+  const {id} = req.params
+  User.findOne({ _id: id })
+      .populate('entries')
+      .exec()
+      .then(function(data){
+        console.log(`data retrieved from user ${id}`);
+        res.json({ data });
+      })
+      .catch(function(err){
+        res.json({err})
+      })
+})
+
 module.exports = router;
