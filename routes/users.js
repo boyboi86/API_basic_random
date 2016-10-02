@@ -29,14 +29,18 @@ router.post('/signin', requireSignin, Auth.SignIn);
 router.post('/signup', Auth.SignUp);
 
 /*List of post from user id*/
-router.get('/:id', requireAuth, function(req, res){
+router.get('/:id', function(req, res){
   const {id} = req.params
   User.findOne({ _id: id })
       .populate('entries')
       .exec()
-      .then(function(data){
+      .then(function(user){
+        if(!user){
+          console.log(`user ${id} does not exist or user does not have post yet`)
+        }
         console.log(`data retrieved from user ${id}`);
-        res.json({ data });
+        console.log(`data retrieved: ${user.entries}`)
+        res.json({ user });
       })
       .catch(function(err){
         res.json({err})
