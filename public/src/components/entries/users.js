@@ -39,9 +39,11 @@ class Users extends Component {
         return (
           <li className="list-group-item" key={ index }>
           <Link to={`/user/${el._id}`} activeClassName="active">
-          {el.email}
-          <div className="pull-sm-right">Join on {el.createdAt}</div>
-          <div>Created {el.entries.length} entries</div>
+          <div>
+            {el.email}
+            <div className="pull-sm-right">Join on {el.createdAt}</div>
+            <div>Created {el.entries.length} entries</div>
+          </div>
           </Link>
           </li>
         )
