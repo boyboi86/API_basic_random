@@ -45,13 +45,17 @@ componentWillMount(){
             <label>title:</label>
             <input {...title} className="form-control" type="text"
             value={this.props.post.title}
-            onChange={ this.TitleChange.bind(this)}/>
+            maxLength="50"
+            onChange={ this.TitleChange.bind(this)}
+            autoComplete="off" required/>
           </fieldset>
           <fieldset className="form-group">
             <label>description:</label>
             <textarea {...description} className="form-control" type="text"
             value={this.props.post.description}
-            onChange={this.DescChange.bind(this)}/>
+            maxLength="300"
+            onChange={this.DescChange.bind(this)}
+            autoComplete="off" required/>
           </fieldset>
           {this.errorHandle()}
           <button action="submit" className="btn btn-primary">Submit Changes</button>

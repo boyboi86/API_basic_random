@@ -12,13 +12,14 @@ import {
   PATCH_POST,
   PATCH_EDITPOST,
   PATCH_EDITPOST_DESC,
-  POST_ERR } from './types';
+  POST_ERR,
+  POST_DESCLEN,
+  POST_TEXT } from './types';
 
 
 // const ROOT_URL = "//localhost:3000"
 
 const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
-
 axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
 
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
@@ -136,6 +137,19 @@ export function postEntry({title, description}){
       dispatch(postErr('word count limit exceeded'));
       console.log({err});
     })
+  }
+}
+/* Create new post handles for char count and text*/
+export function onDescLength({ description, length }){
+  return function(dispatch){
+    dispatch({
+          type: POST_DESCLEN,
+          payload: length
+    });
+    dispatch({
+      type: POST_TEXT,
+      payload: description
+    });
   }
 }
 

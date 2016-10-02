@@ -18,9 +18,28 @@ class NewEntry extends Component{
       )
     }
   }
+/*Triggers your word count and actualy text input*/
+  textAreaHandle(event){
+  this.props.onDescLength({ description: event.target.value ,length: event.target.value.length})
+  }
+
+  wordCountHandle(){
+    const Num = parseInt(this.props.length, 10)
+    if(Num === 300){
+      return (
+        <div className="exceeded pull-sm-right">{this.props.length} / 300</div>
+      )
+    } else {
+      return (
+        <div className="pull-sm-right">{this.props.length} / 300</div>
+      )
+    }
+  }
+
+
 
   render(){
-    const {handleSubmit, fields: { title , description } } = this.props;
+    const {handleSubmit, fields: { title , description }} = this.props;
     return (
       <div>
         <div>
@@ -29,11 +48,18 @@ class NewEntry extends Component{
         <form id="CreateForm" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <fieldset>
             <label>Title:</label>
-            <input {...title} type="text" value={this.props.newpost} className="form-control title" placeholder="Title of your post.." />
+            <input {...title} type="text"
+            className="form-control"
+            maxLength="50"
+            placeholder="Title of your post.." autoComplete="off" required/>
           </fieldset>
           <fieldset>
             <label>Description:</label>
-            <textarea {...description} type="text" value={this.props.newpost} className="form-control description" placeholder="What's your story about.." />
+            <textarea {...description} type="text" value={this.props.text} onChange={this.textAreaHandle.bind(this)}
+            className="form-control"
+            maxLength="300"
+            placeholder="What's your story about.." autoComplete="off" required/>
+            {this.wordCountHandle()}
           </fieldset>
           {this.errorHandle()}
           <button action="submit" className="btn btn-primary">Submit</button>
@@ -49,7 +75,9 @@ const formOptions = { form: 'newEntry' , fields: [ 'title', 'description' ] }
 
 function mapStateToProps(state){
   return {
-    errorMsg: state.posts.error
+    errorMsg: state.posts.error,
+    length: state.posts.length,
+    post: state.posts.text
   }
 }
 
