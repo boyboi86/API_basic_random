@@ -9,6 +9,7 @@ import reduxThunk from 'redux-thunk';
 import App from './components/app';
 import Indexpage from './components/indexpage';
 import Users from './components/entries/users';
+import UsersPost from './components/entries/user_post';
 import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
@@ -39,6 +40,7 @@ ReactDOM.render(
         <Route path="signout" component={ Signout } />
         <Route path="signup" component={ Signup } />
         <Route path="users" component= { requiredAuth(Users) } />
+        <Route path="user/:id" component={ requiredAuth(UsersPost) } />
         <Route path="entry/new" component= { requiredAuth(NewEntry) }  />
         <Route path="entry/edit/:id" component= { requiredAuth(EditEntry) }  />
         <Route path="entry" component= { requiredAuth(Entry) } />

@@ -16,21 +16,33 @@ class Users extends Component {
         </div>
       )
     }
+
+    if(!this.props.users[0]){
+      return (
+        <div>
+          <strong>Loading..!!</strong>
+        </div>
+      )
+    }
     return this.props.users.map(function(el, index){
       if(el.entries.length <= 1) {
         return (
           <li className="list-group-item" key={ index }>
+          <Link to={`/users/${el._id}`} activeClassName="active">
           {el.email}
           <div className="pull-sm-right">Join on {el.createdAt}</div>
           <div>Created {el.entries.length} entry</div>
+          </Link>
           </li>
         )
       }
         return (
           <li className="list-group-item" key={ index }>
+          <Link to={`/user/${el._id}`} activeClassName="active">
           {el.email}
           <div className="pull-sm-right">Join on {el.createdAt}</div>
           <div>Created {el.entries.length} entries</div>
+          </Link>
           </li>
         )
       })

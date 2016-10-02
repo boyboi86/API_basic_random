@@ -6,6 +6,7 @@ import {
   AUTH_ERROR,
   UNAUTH_USER,
   GET_USERS,
+  GET_USERS_POST,
   GET_POSTS,
   GET_EDITPOST,
   DELETE_POST,
@@ -17,10 +18,11 @@ import {
   POST_TEXT } from './types';
 
 
-// const ROOT_URL = "//localhost:3000"
+const ROOT_URL = "//localhost:3000"
 
-const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
-axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+// const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
+// axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+// axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
 
@@ -83,6 +85,24 @@ export function getUsers(){
     })
     .catch(function(err){
       console.log({err})
+    })
+  }
+}
+
+/*Get the entire list of post by a user within database */
+export function getOtherUsersPost({id}){
+  return function(dispatch){
+    console.log(id)
+    axios.get(`${ROOT_URL}/users/${id}`)
+    .then(function(res){
+      console.log(res.data.user.entries)
+      dispatch({
+        type: GET_USERS_POST,
+        payload: res.data
+      })
+    })
+    .catch(function(err){
+      console.log({err});
     })
   }
 }
@@ -213,7 +233,7 @@ export function onDescChange({description}){
   }
 }
 
-/* Error message for all post */
+/* Error message for all post props */
 export function postErr(err){
   return {
     type: POST_ERR,

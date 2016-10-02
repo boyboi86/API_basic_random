@@ -31,7 +31,7 @@ class NewEntry extends Component{
       )
     } else {
       return (
-        <div className="pull-sm-right">{this.props.length} / 300</div>
+        <div className="pull-sm-right"><strong>{this.props.length} / 300</strong></div>
       )
     }
   }
