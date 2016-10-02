@@ -32,7 +32,13 @@ You can also see all your post details like when it was posted.
 
 You can see a list of users with the number of post they have made.
 
+There is character count handle at bottom right hand corner, when you create new post. To keep track of number of characters typed.
+
 Give it a try here [Heroku](https://glacial-cove-64389.herokuapp.com)
+
+##When you are NOT authenticated
+
+You can see all other individual posts. (Assuming if you know their user IDs)
 
 ## Note
 
