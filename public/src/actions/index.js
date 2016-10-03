@@ -123,7 +123,7 @@ export function getOwnPosts(){
   }
 }
 
-/* Delete single post
+/* Delete single post no need for dispatch
   Route: /entry */
 export function deletePosts(_id){
   return function(dispatch){
@@ -153,6 +153,7 @@ export function postEntry({title, description}){
     })
   }
 }
+
 /* Create new post handles for char count and text*/
 export function onDescLength({ description, length }){
   return function(dispatch){
