@@ -40,9 +40,9 @@ ReactDOM.render(
         <Route path="signout" component={ Signout } />
         <Route path="signup" component={ Signup } />
         <Route path="users" component= { requiredAuth(Users) } />
-        <Route path="user/:id" component={ requiredAuth(UsersPost) } />
+        <Route path="users/:id" component={ requiredAuth(UsersPost) } />
         <Route path="entry/new" component= { requiredAuth(NewEntry) }  />
-        <Route path="entry/edit/:id" component= { requiredAuth(EditEntry) }  />
+        <Route path="entry/:id" component= { requiredAuth(EditEntry) }  />
         <Route path="entry" component= { requiredAuth(Entry) } />
         <Route path="*" component = { NotFound } />
       </Route>
