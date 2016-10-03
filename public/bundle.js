@@ -27461,19 +27461,23 @@
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: '/user/' + el._id, activeClassName: 'active' },
-	            el.email,
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pull-sm-right' },
-	              'Join on ',
-	              el.createdAt
-	            ),
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              'Created ',
-	              el.entries.length,
-	              ' entries'
+	              el.email,
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'pull-sm-right' },
+	                'Join on ',
+	                el.createdAt
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                null,
+	                'Created ',
+	                el.entries.length,
+	                ' entries'
+	              )
 	            )
 	          )
 	        );
@@ -27542,10 +27546,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// const ROOT_URL = "//localhost:3000"
+	var ROOT_URL = "//localhost:3000";
 
-	var ROOT_URL = "https://glacial-cove-64389.herokuapp.com";
-	_axios2.default.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+	// const ROOT_URL = "https://glacial-cove-64389.herokuapp.com"
+	// axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
 
 	var axiosOption = { headers: { authorization: localStorage.getItem('token') } };
 
@@ -27617,9 +27621,7 @@
 	  var id = _ref3.id;
 
 	  return function (dispatch) {
-	    console.log(id);
 	    _axios2.default.get(ROOT_URL + '/users/' + id).then(function (res) {
-	      console.log(res.data.user.entries);
 	      dispatch({
 	        type: _types.GET_USERS_POST,
 	        payload: res.data
@@ -27637,7 +27639,6 @@
 	function getOwnPosts() {
 	  return function (dispatch) {
 	    _axios2.default.get(ROOT_URL + '/entries/', axiosOption).then(function (res) {
-	      console.log(res.data);
 	      dispatch({
 	        type: _types.GET_POSTS,
 	        payload: res
@@ -27653,7 +27654,6 @@
 	function deletePosts(_id) {
 	  return function (dispatch) {
 	    _axios2.default.delete(ROOT_URL + '/entries/' + _id, axiosOption).then(function (res) {
-	      console.log(res.data);
 	      dispatch({
 	        type: _types.DELETE_POST,
 	        payload: res
@@ -27671,7 +27671,6 @@
 
 	  return function (dispatch) {
 	    _axios2.default.post(ROOT_URL + '/entries/new', { title: title, description: description }, axiosOption).then(function (res) {
-	      console.log(res.data);
 	      _reactRouter.browserHistory.push('/entry');
 	    }).catch(function (err) {
 	      dispatch(postErr('word count limit exceeded'));
@@ -27703,7 +27702,6 @@
 
 	  return function (dispatch) {
 	    _axios2.default.get(ROOT_URL + '/entries/' + id, axiosOption).then(function (res) {
-	      console.log(res.data);
 	      dispatch({
 	        type: _types.GET_EDITPOST,
 	        payload: res
@@ -27727,7 +27725,6 @@
 	        payload: res
 	      });
 	      _reactRouter.browserHistory.push('/entry');
-	      console.log(res.data);
 	    }).catch(function (err) {
 	      dispatch(postErr('word count limit exceeded'));
 	      console.log({ err: err });
@@ -27741,7 +27738,6 @@
 	  var title = _ref8.title;
 
 	  return function (dispatch) {
-	    console.log({ title: title });
 	    dispatch({
 	      type: _types.PATCH_EDITPOST,
 	      payload: title
@@ -27754,7 +27750,6 @@
 	  var description = _ref9.description;
 
 	  return function (dispatch) {
-	    console.log({ description: description });
 	    dispatch({
 	      type: _types.PATCH_EDITPOST_DESC,
 	      payload: description
@@ -47606,7 +47601,7 @@
 /* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -47636,15 +47631,25 @@
 	  }
 
 	  _createClass(NotFound, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
+	        "div",
+	        { className: "col-sm-6 offset-sm-3" },
 	        _react2.default.createElement(
-	          'strong',
+	          "h1",
+	          { className: "center" },
+	          _react2.default.createElement(
+	            "strong",
+	            null,
+	            "404"
+	          )
+	        ),
+	        _react2.default.createElement("br", null),
+	        _react2.default.createElement(
+	          "strong",
 	          null,
-	          'It seems like you are lost!!'
+	          "It seems like you are lost!!"
 	        )
 	      );
 	    }
@@ -47761,7 +47766,7 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? { post: [] } : arguments[0];
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? { post: [], error: '', text: [] } : arguments[0];
 	  var action = arguments[1];
 
 	  switch (action.type) {
