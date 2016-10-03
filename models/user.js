@@ -12,9 +12,11 @@ const userSchema = new Schema({
     lowercase: true,
     trim: true
   },
-  password: String
-,
-entries : [{ type: Schema.Types.ObjectId, ref: 'Entry' }]}, { timestamps: true })
+  password: String,
+  followers: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+  follow: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+  entries : [{ type: Schema.Types.ObjectId, ref: 'Entry' }]},
+  { timestamps: true })
 
 /* Async salt/hash for each signup before saving user details */
 userSchema.pre('save', function(next){
