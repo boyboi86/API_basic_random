@@ -15,6 +15,8 @@ class UsersPost extends Component {
     return moment(updatedAt, 'YYYYMMDD').fromNow()
   }
 
+
+
 userPostHandle(){
   if(!this.props.users.entries || !this.props.users.entries[0]){
     return (

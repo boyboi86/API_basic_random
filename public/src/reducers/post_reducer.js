@@ -9,7 +9,7 @@ import { POST_ERR } from '../actions/types';
 import { POST_DESCLEN } from '../actions/types';
 import { POST_TEXT } from '../actions/types';
 
-export default function( state = { post: [] }, action){
+export default function( state = { post: [], error: '', text: [] }, action){
   switch (action.type) {
     case GET_POSTS:
       return { ...state, error: '', post: action.payload.data };

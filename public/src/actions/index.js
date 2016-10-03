@@ -18,10 +18,10 @@ import {
   POST_TEXT } from './types';
 
 
-// const ROOT_URL = "//localhost:3000"
+const ROOT_URL = "//localhost:3000"
 
-const ROOT_URL = "https://glacial-cove-64389.herokuapp.com"
-axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+// const ROOT_URL = "https://glacial-cove-64389.herokuapp.com"
+// axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
 
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
 
@@ -91,10 +91,8 @@ export function getUsers(){
 /*Get the entire list of post by a user within database */
 export function getOtherUsersPost({id}){
   return function(dispatch){
-    console.log(id)
     axios.get(`${ROOT_URL}/users/${id}`)
     .then(function(res){
-      console.log(res.data.user.entries)
       dispatch({
         type: GET_USERS_POST,
         payload: res.data
@@ -114,7 +112,6 @@ export function getOwnPosts(){
   return function(dispatch){
     axios.get(`${ROOT_URL}/entries/`, axiosOption)
     .then(function(res){
-      console.log(res.data);
       dispatch({
         type: GET_POSTS,
         payload: res
@@ -132,7 +129,6 @@ export function deletePosts(_id){
   return function(dispatch){
     axios.delete(`${ROOT_URL}/entries/${_id}`, axiosOption)
     .then(function(res){
-      console.log(res.data)
       dispatch({
         type: DELETE_POST,
         payload: res
@@ -149,7 +145,6 @@ export function postEntry({title, description}){
   return function(dispatch){
     axios.post(`${ROOT_URL}/entries/new`, {title, description}, axiosOption)
     .then(function(res){
-      console.log(res.data)
       browserHistory.push('/entry')
     })
     .catch(function(err){
@@ -178,7 +173,6 @@ export function getEditPost({id}){
   return function(dispatch){
     axios.get(`${ROOT_URL}/entries/${id}`, axiosOption)
     .then(function(res){
-      console.log(res.data)
       dispatch({
         type: GET_EDITPOST,
         payload: res
@@ -200,7 +194,6 @@ export function patchPost({title, description, id}){
         payload: res
       })
       browserHistory.push('/entry');
-      console.log(res.data)
     })
     .catch(function(err){
       dispatch(postErr('word count limit exceeded'))
@@ -213,7 +206,6 @@ export function patchPost({title, description, id}){
   Route: entry/edit/:id */
 export function onTitleChange({title}){
   return function(dispatch){
-    console.log({title})
     dispatch({
       type: PATCH_EDITPOST,
       payload: title
@@ -224,7 +216,6 @@ export function onTitleChange({title}){
   Route: entry/edit/:id */
 export function onDescChange({description}){
   return function(dispatch){
-    console.log({description})
     dispatch({
       type: PATCH_EDITPOST_DESC,
       payload: description
