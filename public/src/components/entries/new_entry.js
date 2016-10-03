@@ -18,7 +18,7 @@ class NewEntry extends Component{
       )
     }
   }
-/*Triggers your word count and actualy text input*/
+/*Triggers your word count and actual text input*/
   textAreaHandle(event){
   this.props.onDescLength({ description: event.target.value ,length: event.target.value.length})
   }
@@ -55,7 +55,7 @@ class NewEntry extends Component{
           </fieldset>
           <fieldset>
             <label>Description:</label>
-            <textarea {...description} type="text" value={this.props.text} onChange={this.textAreaHandle.bind(this)}
+            <textarea {...description} type="text" value={this.props.post} onChange={this.textAreaHandle.bind(this)}
             className="form-control"
             maxLength="300"
             placeholder="What's your story about.." autoComplete="off" required/>
@@ -63,7 +63,7 @@ class NewEntry extends Component{
           </fieldset>
           {this.errorHandle()}
           <button action="submit" className="btn btn-primary">Submit</button>
-          <Link className="btn btn-danger pull-sm-right" to="/entry">cancel?</Link>
+          <Link className="btn btn-danger" to="/entry">cancel?</Link>
         </form>
       </div>
     )
