@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import * as actions from '../../actions';
 import { Link } from 'react-router';
 
@@ -8,7 +9,35 @@ class Users extends Component {
     this.props.getUsers()
   }
 
+  joinDate(date){
+    return moment.utc(date).format('MMM YYYY')
+  }
+
+/*Num of entries*/
+  entryNum(num){
+    if(num <= 1){
+      return(
+        <div>Created {num} entry</div>
+      )
+    } else {
+      return(
+        <div>Created {num} entries</div>
+      )
+    }
+  }
+/*Num of followers*/
+  userNum(num){
+    if(num <= 1){
+      <div>{num} follower </div>
+    } else {
+      return(
+        <div>{num} followers </div>
+      )
+    }
+  }
+
   renderElements(){
+/*First user post */
     if(!this.props.users){
       return(
         <div>
@@ -17,6 +46,7 @@ class Users extends Component {
       )
     }
 
+/*Simple loader*/
     if(!this.props.users[0]){
       return (
         <div>
@@ -24,31 +54,21 @@ class Users extends Component {
         </div>
       )
     }
+
+/*The <li> user list types*/
     return this.props.users.map(function(el, index){
-      if(el.entries.length <= 1) {
         return (
           <li className="list-group-item" key={ index }>
           <Link to={`/users/${el._id}`} activeClassName="active">
           {el.email}
-          <div className="pull-sm-right">Join on {el.createdAt}</div>
-          <div>Created {el.entries.length} entry</div>
+          <div className="pull-sm-right">Join on {this.joinDate(el.createdAt)}</div>
+          {this.entryNum(el.entries.length)}
+          {this.userNum(el.followers.length)}
           </Link>
           </li>
         )
-      }
-        return (
-          <li className="list-group-item" key={ index }>
-          <Link to={`/user/${el._id}`} activeClassName="active">
-          <div>
-            {el.email}
-            <div className="pull-sm-right">Join on {el.createdAt}</div>
-            <div>Created {el.entries.length} entries</div>
-          </div>
-          </Link>
-          </li>
-        )
-      })
-  }
+      }, this)
+    }
 
   render(){
     return (

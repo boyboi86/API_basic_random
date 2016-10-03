@@ -32,7 +32,7 @@ class Entry extends Component{
             <i className="pull-sm-right">{this.getTimeFrom(el.updatedAt)}</i>
           </div>
           <div>{el.description}</div>
-          <Link className="btn btn-warning" to={`/entry/edit/${el._id}`} activeClassName="active">Edit</Link>
+          <Link className="btn btn-warning" to={`/entry/${el._id}`} activeClassName="active">Edit</Link>
           <button className="btn btn-danger pull-sm-right" onClick= { () => this.props.deletePosts(el._id)}>Delete</button>
         </li>
       )

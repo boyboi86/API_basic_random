@@ -20,7 +20,7 @@ class UsersPost extends Component {
 userPostHandle(){
   if(!this.props.users.entries || !this.props.users.entries[0]){
     return (
-      <div><strong>Loading..!!</strong></div>
+      <div><strong>No post found!!</strong></div>
     )
   }
   return this.props.users.entries.map(function(el, index){
