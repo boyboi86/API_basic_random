@@ -37,13 +37,13 @@ componentWillMount(){
     const { handleSubmit, fields: {title, description}} = this.props;
     return(
       <div>
-      <div>
-        <strong>Edit post</strong>
-      </div>
+        <div>
+          <strong>Edit post</strong>
+        </div>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <fieldset className="form-group">
             <label>title:</label>
-            <input {...title} className="form-control" type="text"
+            <textarea {...title} className="form-control title" type="text"
             value={this.props.post.title}
             maxLength="50"
             onChange={ this.TitleChange.bind(this)}
