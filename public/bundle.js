@@ -150,9 +150,9 @@
 	      _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'users', component: (0, _require_auth2.default)(_users2.default) }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'user/:id', component: (0, _require_auth2.default)(_user_post2.default) }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'users/:id', component: (0, _require_auth2.default)(_user_post2.default) }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'entry/new', component: (0, _require_auth2.default)(_new_entry2.default) }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'entry/edit/:id', component: (0, _require_auth2.default)(_edit_entry2.default) }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'entry/:id', component: (0, _require_auth2.default)(_edit_entry2.default) }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'entry', component: (0, _require_auth2.default)(_entry2.default) }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '*', component: _notfound2.default })
 	    )
@@ -27374,6 +27374,10 @@
 
 	var _reactRedux = __webpack_require__(160);
 
+	var _moment = __webpack_require__(321);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
 	var _actions = __webpack_require__(252);
 
 	var actions = _interopRequireWildcard(_actions);
@@ -27405,8 +27409,59 @@
 	      this.props.getUsers();
 	    }
 	  }, {
+	    key: 'joinDate',
+	    value: function joinDate(date) {
+	      return _moment2.default.utc(date).format('MMM YYYY');
+	    }
+
+	    /*Num of entries*/
+
+	  }, {
+	    key: 'entryNum',
+	    value: function entryNum(num) {
+	      if (num <= 1) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Created ',
+	          num,
+	          ' entry'
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Created ',
+	          num,
+	          ' entries'
+	        );
+	      }
+	    }
+	    /*Num of followers*/
+
+	  }, {
+	    key: 'userNum',
+	    value: function userNum(num) {
+	      if (num <= 1) {
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          num,
+	          ' follower '
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          num,
+	          ' followers '
+	        );
+	      }
+	    }
+	  }, {
 	    key: 'renderElements',
 	    value: function renderElements() {
+	      /*First user post */
 	      if (!this.props.users) {
 	        return _react2.default.createElement(
 	          'div',
@@ -27419,6 +27474,7 @@
 	        );
 	      }
 
+	      /*Simple loader*/
 	      if (!this.props.users[0]) {
 	        return _react2.default.createElement(
 	          'div',
@@ -27430,58 +27486,27 @@
 	          )
 	        );
 	      }
+
+	      /*The <li> user list types*/
 	      return this.props.users.map(function (el, index) {
-	        if (el.entries.length <= 1) {
-	          return _react2.default.createElement(
-	            'li',
-	            { className: 'list-group-item', key: index },
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/users/' + el._id, activeClassName: 'active' },
-	              el.email,
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pull-sm-right' },
-	                'Join on ',
-	                el.createdAt
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                null,
-	                'Created ',
-	                el.entries.length,
-	                ' entry'
-	              )
-	            )
-	          );
-	        }
 	        return _react2.default.createElement(
 	          'li',
 	          { className: 'list-group-item', key: index },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: '/user/' + el._id, activeClassName: 'active' },
+	            { to: '/users/' + el._id, activeClassName: 'active' },
+	            el.email,
 	            _react2.default.createElement(
 	              'div',
-	              null,
-	              el.email,
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pull-sm-right' },
-	                'Join on ',
-	                el.createdAt
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                null,
-	                'Created ',
-	                el.entries.length,
-	                ' entries'
-	              )
-	            )
+	              { className: 'pull-sm-right' },
+	              'Join on ',
+	              this.joinDate(el.createdAt)
+	            ),
+	            this.entryNum(el.entries.length),
+	            this.userNum(el.followers.length)
 	          )
 	        );
-	      });
+	      }, this);
 	    }
 	  }, {
 	    key: 'render',
@@ -27649,7 +27674,7 @@
 	  };
 	}
 
-	/* Delete single post
+	/* Delete single post no need for dispatch
 	  Route: /entry */
 	function deletePosts(_id) {
 	  return function (dispatch) {
@@ -27678,6 +27703,7 @@
 	    });
 	  };
 	}
+
 	/* Create new post handles for char count and text*/
 	function onDescLength(_ref5) {
 	  var description = _ref5.description;
@@ -32231,7 +32257,7 @@
 	          _react2.default.createElement(
 	            'strong',
 	            null,
-	            'Loading..!!'
+	            'No post found!!'
 	          )
 	        );
 	      }
@@ -47136,7 +47162,7 @@
 	          ),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { className: 'btn btn-warning', to: '/entry/edit/' + el._id, activeClassName: 'active' },
+	            { className: 'btn btn-warning', to: '/entry/' + el._id, activeClassName: 'active' },
 	            'Edit'
 	          ),
 	          _react2.default.createElement(
@@ -47239,7 +47265,7 @@
 	        );
 	      }
 	    }
-	    /*Triggers your word count and actualy text input*/
+	    /*Triggers your word count and actual text input*/
 
 	  }, {
 	    key: 'textAreaHandle',
@@ -47315,7 +47341,7 @@
 	              null,
 	              'Description:'
 	            ),
-	            _react2.default.createElement('textarea', _extends({}, description, { type: 'text', value: this.props.text, onChange: this.textAreaHandle.bind(this),
+	            _react2.default.createElement('textarea', _extends({}, description, { type: 'text', value: this.props.post, onChange: this.textAreaHandle.bind(this),
 	              className: 'form-control',
 	              maxLength: '300',
 	              placeholder: 'What\'s your story about..', autoComplete: 'off', required: true })),
@@ -47329,7 +47355,7 @@
 	          ),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { className: 'btn btn-danger pull-sm-right', to: '/entry' },
+	            { className: 'btn btn-danger', to: '/entry' },
 	            'cancel?'
 	          )
 	        )
@@ -47466,7 +47492,7 @@
 	              null,
 	              'title:'
 	            ),
-	            _react2.default.createElement('input', _extends({}, title, { className: 'form-control', type: 'text',
+	            _react2.default.createElement('textarea', _extends({}, title, { className: 'form-control title', type: 'text',
 	              value: this.props.post.title,
 	              maxLength: '50',
 	              onChange: this.TitleChange.bind(this),
@@ -47635,7 +47661,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "col-sm-6 offset-sm-3" },
+	        { className: "col-sm-6 offset-sm-3 jumbotron" },
 	        _react2.default.createElement(
 	          "h1",
 	          { className: "center" },
