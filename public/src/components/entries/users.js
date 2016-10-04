@@ -4,10 +4,32 @@ import moment from 'moment';
 import * as actions from '../../actions';
 import { Link } from 'react-router';
 
+/*This is dangerous*/
+
+
 class Users extends Component {
   componentWillMount(){
     this.props.getUsers()
   }
+  componentDidUpdate(){
+    this.props.getUsers()
+  }
+/* Templating for follower system */
+//   ConnectionHandle(Array, _id){
+//   return Array.forEach(function(el, index){
+//       console.log('chicken');
+//     if(el === User_id){
+//       return(
+//         <div className="btn btn-warning" onClick={() => this.props.disconnectUser({id: _id})}>- user</div>
+//       );
+//     } else {
+//       return (
+//         <div className="btn btn-info" onClick={() => this.props.connectUser({id: _id})}>+ user</div>
+//       );
+//     }
+//   },this);
+// };
+
 
   joinDate(date){
     return moment.utc(date).format('MMM YYYY')
@@ -16,25 +38,20 @@ class Users extends Component {
 /*Num of entries*/
   entryNum(num){
     if(num <= 1){
-      return(
-        <div>Created {num} entry</div>
-      )
+      return <div>Created {num} entry</div>
     } else {
-      return(
-        <div>Created {num} entries</div>
-      )
+      return <div>Created {num} entries</div>
     }
   }
 /*Num of followers*/
   userNum(num){
     if(num <= 1){
-      <div>{num} follower </div>
+      return <div>{num} follower</div>
     } else {
-      return(
-        <div>{num} followers </div>
-      )
+      return <div>{num} followers</div>
     }
   }
+
 
   renderElements(){
 /*First user post */
@@ -46,6 +63,7 @@ class Users extends Component {
       )
     }
 
+
 /*Simple loader*/
     if(!this.props.users[0]){
       return (
@@ -55,7 +73,7 @@ class Users extends Component {
       )
     }
 
-/*The <li> user list types*/
+/*The <li> user list types, the followers/following icon should be here pending feature*/
     return this.props.users.map(function(el, index){
         return (
           <li className="list-group-item" key={ index }>
@@ -64,7 +82,12 @@ class Users extends Component {
           <div className="pull-sm-right">Join on {this.joinDate(el.createdAt)}</div>
           {this.entryNum(el.entries.length)}
           {this.userNum(el.followers.length)}
+          <div>{el.follow.length} follows</div>
           </Link>
+
+          {/*{this.ConnectionHandle(el.followers, el._id)}*/}
+          <div className="btn btn-info" onClick={() => this.props.connectUser({id: el._id})}>+ user</div>
+          <div className="btn btn-warning" onClick={() => this.props.disconnectUser({id: el._id})}>- user</div>
           </li>
         )
       }, this)

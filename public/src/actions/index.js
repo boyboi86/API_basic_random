@@ -9,7 +9,6 @@ import {
   GET_USERS_POST,
   GET_POSTS,
   GET_EDITPOST,
-  DELETE_POST,
   PATCH_POST,
   PATCH_EDITPOST,
   PATCH_EDITPOST_DESC,
@@ -20,7 +19,7 @@ import {
 
 const ROOT_URL = "//localhost:3000"
 
-// const ROOT_URL = "https://glacial-cove-64389.herokuapp.com"
+// const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
 // axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
 
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
@@ -129,10 +128,7 @@ export function deletePosts(_id){
   return function(dispatch){
     axios.delete(`${ROOT_URL}/entries/${_id}`, axiosOption)
     .then(function(res){
-      dispatch({
-        type: DELETE_POST,
-        payload: res
-      })
+      console.log(res);
     })
     .catch(function(err){
       console.log({err})
@@ -229,5 +225,31 @@ export function postErr(err){
   return {
     type: POST_ERR,
     payload: err
+  }
+}
+
+/*Connecting users
+  Route: /users */
+export function connectUser({id}){
+  return function(dispatch){
+    axios.post(`${ROOT_URL}/users/connect`, {id} ,axiosOption)
+    .then(function(res){
+      console.log(res.data);
+    })
+    .catch(function(err){
+      console.log({err});
+    })
+  }
+}
+
+export function disconnectUser({id}){
+  return function(dispatch){
+    axios.post(`${ROOT_URL}/users/disconnect`, {id} ,axiosOption)
+    .then(function(res){
+      console.log(res.data);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
   }
 }
