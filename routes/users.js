@@ -19,7 +19,7 @@ router.get('/', requireAuth, function(req, res) {
   const tokenId = jwt.verify(req.headers.authorization, config.secret).sub
   User.find({}).sort({createdAt: -1}).exec()
     .then(function (users) {
-    res.setHeader('user', tokenId);  
+    res.setHeader('user', tokenId);
     res.json({ users })
   })
   .catch(function(err){
@@ -55,7 +55,6 @@ router.get('/:id', function(req, res){
 /*Follow single user if you did not place proper model earlier on you will need upsert field*/
 router.post('/connect', requireAuth, function(req, res){
   const {id} = req.body
-  console.log(id)
   const followId = mongoose.Types.ObjectId(id);
   const tokenId = jwt.verify(req.headers.authorization, config.secret).sub
   const followerId = mongoose.Types.ObjectId(tokenId);
