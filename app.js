@@ -6,12 +6,14 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const http = require('http');
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
 const entries = require('./routes/entries');
 
 const config = require('./config');
+const port = process.env.PORT || 3000;
 
 const app = express();
 const accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
@@ -41,5 +43,7 @@ app.use('/users', users);
 app.use('/entries', entries);
 /*Route reserved for all static assets must be last route to run */
 app.use('/', routes);
+
+http.createServer(app).listen(port);
 
 module.exports = app;
