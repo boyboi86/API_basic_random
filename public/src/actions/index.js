@@ -227,29 +227,3 @@ export function postErr(err){
     payload: err
   }
 }
-
-/*Connecting users
-  Route: /users */
-export function connectUser({id}){
-  return function(dispatch){
-    axios.post(`${ROOT_URL}/users/connect`, {id} ,axiosOption)
-    .then(function(res){
-      console.log(res.data);
-    })
-    .catch(function(err){
-      console.log({err});
-    })
-  }
-}
-
-export function disconnectUser({id}){
-  return function(dispatch){
-    axios.post(`${ROOT_URL}/users/disconnect`, {id} ,axiosOption)
-    .then(function(res){
-      console.log(res.data);
-    })
-    .catch(function(err){
-      console.log(err);
-    })
-  }
-}
