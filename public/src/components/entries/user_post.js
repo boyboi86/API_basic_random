@@ -39,6 +39,7 @@ userPostHandle(){
   render(){
     return (
       <div className="jumbotron container">
+      
         <ul className="list-group col-sm-6 offset-sm-3">
         {this.userPostHandle()}
         </ul>
@@ -49,7 +50,8 @@ userPostHandle(){
 
 function mapStateToProps(state){
   return {
-    users: state.users.user
+    users: state.users.user,
+    post: state.posts.post
   }
 }
 

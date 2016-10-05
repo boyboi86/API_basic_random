@@ -15,8 +15,8 @@ class Users extends Component {
     this.props.getUsers()
   }
 /* Templating for follower system */
-//   ConnectionHandle(Array, _id){
-//   return Array.forEach(function(el, index){
+//   ConnectionHandle(entryArray, _id){
+//   return entryArray.forEach(function(el, index){
 //       console.log('chicken');
 //     if(el === User_id){
 //       return(
