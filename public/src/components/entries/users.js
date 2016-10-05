@@ -14,22 +14,6 @@ class Users extends Component {
   componentDidUpdate(){
     this.props.getUsers()
   }
-/* Templating for follower system */
-//   ConnectionHandle(entryArray, _id){
-//   return entryArray.forEach(function(el, index){
-//       console.log('chicken');
-//     if(el === User_id){
-//       return(
-//         <div className="btn btn-warning" onClick={() => this.props.disconnectUser({id: _id})}>- user</div>
-//       );
-//     } else {
-//       return (
-//         <div className="btn btn-info" onClick={() => this.props.connectUser({id: _id})}>+ user</div>
-//       );
-//     }
-//   },this);
-// };
-
 
   joinDate(date){
     return moment.utc(date).format('MMM YYYY')
@@ -84,10 +68,6 @@ class Users extends Component {
           {this.userNum(el.followers.length)}
           <div>{el.follow.length} follows</div>
           </Link>
-
-          {/*{this.ConnectionHandle(el.followers, el._id)}*/}
-          <div className="btn btn-info" onClick={() => this.props.connectUser({id: el._id})}>+ user</div>
-          <div className="btn btn-warning" onClick={() => this.props.disconnectUser({id: el._id})}>- user</div>
           </li>
         )
       }, this)
