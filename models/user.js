@@ -18,6 +18,7 @@ const userSchema = new Schema({
   entries : [{ type: Schema.Types.ObjectId, ref: 'Entry' }]},
   { timestamps: true })
 
+userSchema.index({ followers:1, follow:1}, {unique:true});
 /* Async salt/hash for each signup before saving user details */
 userSchema.pre('save', function(next){
   let user = this;

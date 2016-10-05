@@ -15,7 +15,7 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 router.get('/', requireAuth, function(req, res, next) {
   const user_id = jwt.verify(req.headers.authorization, config.secret).sub
   console.info('GET all entry');
-    Entry.find({ _creator: user_id }).exec()
+    Entry.find({ _creator: user_id }).sort({ updatedAt: -1 }).exec()
     .then(function(docs){
       return res.json(docs)
     })
