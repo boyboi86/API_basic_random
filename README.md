@@ -48,7 +48,7 @@ I included the bundle.js in the public folder, so there is no need to run additi
 
 Please make sure you have either mongodb installed or a mLab account when you set up your own config file.
 
-config file format (JSON):
+config file format :
 `module.exports = {
   mLab: <mLAB_URL>
   secret: <JWT_SECRETKEY>
