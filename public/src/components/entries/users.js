@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import * as actions from '../../actions';
 import { Link } from 'react-router';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 /*This is dangerous*/
 
@@ -74,10 +75,18 @@ class Users extends Component {
     }
 
   render(){
+    const TransitionOptions = {
+      transitionName: "fade",
+      transitionEnterTimeout: 500,
+      transitionLeaveTimeout: 500
+    };
+    
     return (
       <div>
         <ul className="list-group">
-            {this.renderElements()}
+          <ReactCSSTransitionGroup {...TransitionOptions}>
+          {this.renderElements()}
+          </ReactCSSTransitionGroup>
         </ul>
       </div>
     )

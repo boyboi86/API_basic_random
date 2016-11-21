@@ -58,13 +58,13 @@ router.post('/connect', requireAuth, function(req, res){
   const followId = mongoose.Types.ObjectId(id);
   const tokenId = jwt.verify(req.headers.authorization, config.secret).sub
   const followerId = mongoose.Types.ObjectId(tokenId);
-  User.findOneAndUpdate({ _id: tokenId }, { $push: { 'follow': followId}}, { upsert: true, new : true})
+  User.findOneAndUpdate({ _id: tokenId }, { $push: { 'follow': followId}}, { upsert: true, new : true, runValidators:true})
       .exec()
       .then(function(doc){
-        if(!doc){
-          console.error('cannot establish relationship')
-        }
-        return User.findOneAndUpdate({ _id: id }, {$push: {'followers': followerId}}, { upsert: true, new : true})
+        if (!doc){
+           console.error('cannot establish relationship')
+          }
+        return User.findOneAndUpdate({ _id: id }, {$push: {'followers': followerId}}, { upsert: true, new : true, runValidators:true})
       })
       .then(function(doc){
         if(!doc){

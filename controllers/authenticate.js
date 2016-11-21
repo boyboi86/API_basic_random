@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const config = require('../config');
 
-/* JWT Sign Try to use sync method, async method has alot of fucking problem*/
+/* JWT Sign Try to use sync method*/
 const UserToken = function(user){
   const timestamp = Date.now();
   return jwt.sign({ sub: user.id, iat: timestamp }, config.secret)

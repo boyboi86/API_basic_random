@@ -6,8 +6,9 @@
     "node": "6.4.0"
   },
   "scripts": {
-    "start": "node ./bin/www",
-    "build": "nodemon ./bin/www",
+    "start": "node app.js",
+    "build": "nodemon app.js",
+    "dev:wp": "webpack --watch",
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
@@ -32,6 +33,7 @@
     "passport-local": "^1.0.0",
     "q": "^1.4.1",
     "react": "^0.14.3",
+    "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
     "react-router": "^2.0.1",

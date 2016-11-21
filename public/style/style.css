@@ -85,6 +85,30 @@ html, body {
   right: 0;
 }
 
+/*Css transition group*/
+.fade-enter {
+  opacity: 0;
+  top: 50px;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  top: 0;
+  -webkit-transition: 500ms ease-in;
+  transition: 500ms ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+  top: 0;
+}
+
+.fade-leave-active {
+  opacity: 0;
+  top: 500px;
+  -webkit-transition: 500ms ease-in;
+  transition: 500ms ease-in;
+}
 
 strong, label {
   color: #ffffff;

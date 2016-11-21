@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Entry extends Component{
   componentWillMount(){
@@ -40,10 +41,17 @@ class Entry extends Component{
   }
 
   render(){
+    const TransitionOptions = {
+      transitionName: "fade",
+      transitionEnterTimeout: 500,
+      transitionLeaveTimeout: 500
+    };
     return (
         <div className="container row jumbotron">
             <ul className="list-group col-sm-6 offset-sm-3">
+              <ReactCSSTransitionGroup {...TransitionOptions}>
               { this.renderPost() }
+              </ReactCSSTransitionGroup>
             </ul>
         </div>
     )

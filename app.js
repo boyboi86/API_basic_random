@@ -12,6 +12,7 @@ const routes = require('./routes/index');
 const users = require('./routes/users');
 const entries = require('./routes/entries');
 
+const port = process.env.PORT || 3000;
 const config = require('./config');
 const port = process.env.PORT || 3000;
 
@@ -44,6 +45,7 @@ app.use('/entries', entries);
 /*Route reserved for all static assets must be last route to run */
 app.use('/', routes);
 
+/*Make life easier but less detailed.. runs server*/
 http.createServer(app).listen(port);
 
 module.exports = app;
