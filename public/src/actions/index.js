@@ -16,11 +16,12 @@ import {
   POST_DESCLEN,
   POST_TEXT } from './types';
 
-
+if(process.env.NODE_ENV != "production"){
 const ROOT_URL = "//localhost:3000"
-
-// const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
-// axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+} else {
+const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
+axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+}
 
 const axiosOption = {headers: { authorization : localStorage.getItem('token')}}
 
