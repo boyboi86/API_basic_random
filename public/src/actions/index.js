@@ -16,10 +16,11 @@ import {
   POST_DESCLEN,
   POST_TEXT } from './types';
 
+let ROOT_URL;
 if(process.env.NODE_ENV != "production"){
-const ROOT_URL = "//localhost:3000"
+ ROOT_URL = "//localhost:3000"
 } else {
-const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
+ ROOT_URL = "//glacial-cove-64389.herokuapp.com"
 axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
 }
 
@@ -32,7 +33,7 @@ export function signinUser({ email, password }){
     .then(function(res){
       dispatch({ type: AUTH_USER })
       localStorage.setItem('token', res.data.token);
-      browserHistory.push('/users');
+      browserHistory.push('/');
     })
     .catch(function(err){
       dispatch(authError('Invalid email or password'))
@@ -48,7 +49,7 @@ export function signupUser({email, password}){
     .then(function(res){
       dispatch({ type: AUTH_USER })
       localStorage.setItem('token', res.data.token);
-      browserHistory.push('/users');
+      browserHistory.push('/');
     })
     .catch(function(err){
       dispatch(authError('Invalid email or email has been registered'))
@@ -75,7 +76,7 @@ export function authError(error){
   Route: /users */
 export function getUsers(){
   return function(dispatch){
-    axios.get(`${ROOT_URL}/users/`, axiosOption)
+    axios.get(`${ROOT_URL}/users`, axiosOption)
     .then(function(res){
       dispatch({
         type: GET_USERS,
