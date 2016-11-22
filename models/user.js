@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('q').Promise;
 const { Schema } = mongoose;
 const Entry = require('./entry');
-const Q = require('q');
+// const Q = require('q');
 const bcrypt = require('bcrypt-nodejs');
 
 const userSchema = new Schema({
@@ -13,12 +13,13 @@ const userSchema = new Schema({
     trim: true
   },
   password: String,
-  followers: [{ type: Schema.Types.ObjectId, ref: 'User'}],
-  follow: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+  /*follower system at a later stage*/
+  // followers: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+  // follow: [{ type: Schema.Types.ObjectId, ref: 'User'}],
   entries : [{ type: Schema.Types.ObjectId, ref: 'Entry' }]},
   { timestamps: true })
 
-userSchema.index({ followers:1, follow:1}, {unique:true});
+// userSchema.index({ followers:1, follow:1}, {unique:true});
 /* Async salt/hash for each signup before saving user details */
 userSchema.pre('save', function(next){
   let user = this;
