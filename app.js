@@ -14,7 +14,6 @@ const entries = require('./routes/entries');
 
 const port = process.env.PORT || 3000;
 const config = require('./config');
-const port = process.env.PORT || 3000;
 
 const app = express();
 const accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
