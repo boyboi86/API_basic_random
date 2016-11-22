@@ -27419,23 +27419,6 @@
 	    value: function componentDidUpdate() {
 	      this.props.getUsers();
 	    }
-	    /* Templating for follower system */
-	    //   ConnectionHandle(entryArray, _id){
-	    //   return entryArray.forEach(function(el, index){
-	    //       console.log('chicken');
-	    //     if(el === User_id){
-	    //       return(
-	    //         <div className="btn btn-warning" onClick={() => this.props.disconnectUser({id: _id})}>- user</div>
-	    //       );
-	    //     } else {
-	    //       return (
-	    //         <div className="btn btn-info" onClick={() => this.props.connectUser({id: _id})}>+ user</div>
-	    //       );
-	    //     }
-	    //   },this);
-	    // };
-
-
 	  }, {
 	    key: 'joinDate',
 	    value: function joinDate(date) {
@@ -27517,8 +27500,6 @@
 
 	      /*The <li> user list types, the followers/following icon should be here pending feature*/
 	      return this.props.users.map(function (el, index) {
-	        var _this2 = this;
-
 	        return _react2.default.createElement(
 	          'li',
 	          { className: 'list-group-item', key: index },
@@ -27540,20 +27521,6 @@
 	              el.follow.length,
 	              ' follows'
 	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'btn btn-info', onClick: function onClick() {
-	                return _this2.props.connectUser({ id: el._id });
-	              } },
-	            '+ user'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'btn btn-warning', onClick: function onClick() {
-	                return _this2.props.disconnectUser({ id: el._id });
-	              } },
-	            '- user'
 	          )
 	        );
 	      }, this);
@@ -42011,7 +41978,7 @@
 /* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -42031,8 +41998,6 @@
 	exports.onTitleChange = onTitleChange;
 	exports.onDescChange = onDescChange;
 	exports.postErr = postErr;
-	exports.connectUser = connectUser;
-	exports.disconnectUser = disconnectUser;
 
 	var _axios = __webpack_require__(360);
 
@@ -42046,10 +42011,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ROOT_URL = "//localhost:3000";
-
-	// const ROOT_URL = "//glacial-cove-64389.herokuapp.com"
-	// axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+	var ROOT_URL = void 0;
+	if (process.env.NODE_ENV != "production") {
+	  ROOT_URL = "//localhost:3000";
+	} else {
+	  ROOT_URL = "//glacial-cove-64389.herokuapp.com";
+	  _axios2.default.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+	}
 
 	var axiosOption = { headers: { authorization: localStorage.getItem('token') } };
 
@@ -42062,7 +42030,7 @@
 	    _axios2.default.post(ROOT_URL + '/users/signin', { email: email, password: password }).then(function (res) {
 	      dispatch({ type: _types.AUTH_USER });
 	      localStorage.setItem('token', res.data.token);
-	      _reactRouter.browserHistory.push('/users');
+	      _reactRouter.browserHistory.push('/');
 	    }).catch(function (err) {
 	      dispatch(authError('Invalid email or password'));
 	      console.log({ err: err });
@@ -42079,7 +42047,7 @@
 	    _axios2.default.post(ROOT_URL + '/users/signup', { email: email, password: password }).then(function (res) {
 	      dispatch({ type: _types.AUTH_USER });
 	      localStorage.setItem('token', res.data.token);
-	      _reactRouter.browserHistory.push('/users');
+	      _reactRouter.browserHistory.push('/');
 	    }).catch(function (err) {
 	      dispatch(authError('Invalid email or email has been registered'));
 	      console.log({ err: err });
@@ -42105,7 +42073,7 @@
 	  Route: /users */
 	function getUsers() {
 	  return function (dispatch) {
-	    _axios2.default.get(ROOT_URL + '/users/', axiosOption).then(function (res) {
+	    _axios2.default.get(ROOT_URL + '/users', axiosOption).then(function (res) {
 	      dispatch({
 	        type: _types.GET_USERS,
 	        payload: res
@@ -42262,32 +42230,7 @@
 	    payload: err
 	  };
 	}
-
-	/*Connecting users
-	  Route: /users */
-	function connectUser(_ref10) {
-	  var id = _ref10.id;
-
-	  return function (dispatch) {
-	    _axios2.default.post(ROOT_URL + '/users/connect', { id: id }, axiosOption).then(function (res) {
-	      console.log(res.data);
-	    }).catch(function (err) {
-	      console.log({ err: err });
-	    });
-	  };
-	}
-
-	function disconnectUser(_ref11) {
-	  var id = _ref11.id;
-
-	  return function (dispatch) {
-	    _axios2.default.post(ROOT_URL + '/users/disconnect', { id: id }, axiosOption).then(function (res) {
-	      console.log(res.data);
-	    }).catch(function (err) {
-	      console.log(err);
-	    });
-	  };
-	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 360 */
