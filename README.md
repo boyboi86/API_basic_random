@@ -14,7 +14,7 @@ With the only exception to users page where every user can see every available u
 
 Under public folder, there is another readme.md specifically for React/Redux instructions.
 
-The project is 172 days (roughly 5 months plus) after I started learning HTML/CSS. Finished on 29 Sept 2016.
+Finished on 29 Sept 2016.
 
 ## instructions
 
